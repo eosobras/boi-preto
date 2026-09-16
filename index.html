@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CARLINHOS DO VIOLÃO — Arquivo // Wiki Interna</title>
+<meta name="description" content="Dossiê não-oficial sobre a entidade conhecida como Carlinhos do Violão.">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #0B0F19;
+    --surface: #151923;
+    --surface-2: #1E222D;
+    --line: #2A2F3D;
+    --text: #E4E4E7;
+    --text-dim: #9BA1AF;
+    --red: #EF4444;
+    --red-dim: #7A2222;
+    --cyan: #06B6D4;
+    --amber: #F5B942;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(239,68,68,0.06), transparent 40%),
+      radial-gradient(circle at 85% 20%, rgba(6,182,212,0.05), transparent 35%);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  ::selection { background: var(--red-dim); color: #fff; }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---- scanline / noise texture on hero ---- */
+  .noise-layer{
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+  }
+
+  /* ---- blinking status badge ---- */
+  .pulse-dot{
+    width: 8px; height: 8px; border-radius: 999px;
+    background: var(--red);
+    box-shadow: 0 0 0 0 rgba(239,68,68,0.6);
+    animation: pulse-ring 1.8s ease-out infinite;
+  }
+  @keyframes pulse-ring{
+    0%   { box-shadow: 0 0 0 0 rgba(239,68,68,0.55); }
+    70%  { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+    100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+  }
+
+  /* ---- redacted / censored text reveal ---- */
+  .redacted{
+    background: #0d0d0d;
+    color: transparent;
+    border-radius: 2px;
+    padding: 0 2px;
+    cursor: help;
+    transition: color 0.15s ease, background 0.15s ease;
+    text-shadow: none;
+  }
+  .redacted:hover, .redacted:focus{
+    color: var(--amber);
+    background: transparent;
+    outline: 1px dashed var(--red-dim);
+  }
+
+  /* ---- glitch hover on card titles ---- */
+  .glitch-hover{ position: relative; display: inline-block; }
+  .glitch-hover:hover{ animation: glitch 0.35s steps(2, end) 1; }
+  @keyframes glitch{
+    0%   { transform: translate(0,0); text-shadow: none; }
+    20%  { transform: translate(-1px, 1px); text-shadow: 1px 0 var(--red), -1px 0 var(--cyan); }
+    40%  { transform: translate(1px, -1px); text-shadow: -1px 0 var(--red), 1px 0 var(--cyan); }
+    60%  { transform: translate(-1px, 0); text-shadow: 1px 0 var(--cyan); }
+    100% { transform: translate(0,0); text-shadow: none; }
+  }
+
+  /* ---- infobox ---- */
+  .infobox{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .infobox-row{ border-top: 1px solid var(--line); }
+  .infobox-row:first-child{ border-top: none; }
+
+  /* ---- evidence cards ---- */
+  .evidence-card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .evidence-img-wrap{ overflow: hidden; position: relative; }
+  .evidence-img-wrap img{
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+    filter: grayscale(45%) contrast(1.05) brightness(0.85);
+  }
+  .evidence-card:hover .evidence-img-wrap img{
+    transform: scale(1.06);
+    filter: grayscale(0%) contrast(1.1) brightness(0.95);
+  }
+
+  /* ---- audio player ---- */
+  .tape-player{
+    background: linear-gradient(180deg, #171b25, #10131b);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  .reel{
+    width: 46px; height: 46px; border-radius: 999px;
+    border: 3px solid #3a4152;
+    background: radial-gradient(circle at center, #0B0F19 0 8px, #23283a 9px 12px, transparent 13px);
+    position: relative;
+  }
+  .reel::before{
+    content: ""; position: absolute; inset: 0; border-radius: 999px;
+    background:
+      linear-gradient(90deg, transparent 46%, #3a4152 46%, #3a4152 54%, transparent 54%),
+      linear-gradient(0deg, transparent 46%, #3a4152 46%, #3a4152 54%, transparent 54%);
+  }
+  .reel.spin{ animation: spin 1.6s linear infinite; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .vu-bar{ width: 3px; background: var(--cyan); border-radius: 1px; transition: height 0.1s ease; }
+
+  /* sumário active link */
+  .toc-link{ border-left: 2px solid transparent; }
+  .toc-link.active{ border-left-color: var(--red); color: #fff; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 6px; }
+</style>
+</head>
+
+<body class="min-h-screen">
+
+<!-- ================= HEADER ================= -->
+<header class="sticky top-0 z-40 border-b border-[var(--line)] bg-[var(--bg)]/90 backdrop-blur">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between gap-4 py-3">
+      <a href="#topo" class="flex items-center gap-2 shrink-0">
+        <span class="mono text-[var(--red)] text-lg leading-none">▚</span>
+        <span class="mono text-sm sm:text-base tracking-tight text-[var(--text)]">ARQUIVO <span class="text-[var(--text-dim)]">// WIKI INTERNA</span></span>
+      </a>
+
+      <div class="hidden md:flex flex-1 max-w-sm">
+        <div class="relative w-full">
+          <input id="wikiSearch" type="text" placeholder="Pesquisar no dossiê..."
+            class="w-full bg-[var(--surface-2)] border border-[var(--line)] rounded-md pl-9 pr-3 py-1.5 text-sm text-[var(--text)] placeholder:text-[var(--text-dim)] focus:border-[var(--cyan)] outline-none transition-colors">
+          <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-dim)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.35-5.15a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0 mono text-[10px] sm:text-xs px-2.5 py-1.5 rounded-full border border-[var(--red-dim)] bg-[rgba(239,68,68,0.08)]">
+        <span class="pulse-dot"></span>
+        <span class="text-[var(--red)] tracking-wide">NÍVEL DE AMEAÇA: CRÍTICO</span>
+      </div>
+    </div>
+    <div id="searchResultsBar" class="hidden pb-3 mono text-xs text-[var(--text-dim)]"></div>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main id="topo" class="max-w-6xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
+
+  <!-- ============ COLUNA PRINCIPAL ============ -->
+  <article class="min-w-0">
+
+    <div class="mono text-xs text-[var(--text-dim)] mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+      <span>ID-DOC: 0047-CV</span><span class="text-[var(--line)]">/</span>
+      <span>ÚLTIMA REVISÃO: 14/09/2026</span><span class="text-[var(--line)]">/</span>
+      <span class="text-[var(--cyan)]">ACESSO: RESTRITO AO GRUPO</span>
+    </div>
+
+    <h1 class="display text-4xl sm:text-5xl font-semibold tracking-tight text-white">Carlinhos do Violão</h1>
+    <p class="text-lg text-[var(--text-dim)] mt-1 mb-6">A entidade que ninguém convidou e que ninguém consegue desconvidar.</p>
+
+    <!-- aviso de conteúdo -->
+    <div class="border border-[var(--red-dim)] bg-[rgba(239,68,68,0.06)] rounded-md p-4 mb-8">
+      <p class="mono text-xs tracking-wide text-[var(--red)] mb-1">AVISO DE CONTEÚDO — DOCUMENTO PARCIALMENTE REDIGIDO</p>
+      <p class="text-sm text-[var(--text-dim)]">Este dossiê contém relatos de festas interrompidas, acordes reutilizados à exaustão e pelo menos uma execução não solicitada de "Tears in Heaven". Discrição do leitor é recomendada. Trechos foram <span tabindex="0" class="redacted">censurados a pedido da vizinhança</span>.</p>
+    </div>
+
+    <!-- sumário -->
+    <nav aria-label="Sumário" class="mb-10 border border-[var(--line)] rounded-md bg-[var(--surface)]">
+      <p class="mono text-xs tracking-wide text-[var(--text-dim)] px-4 pt-4">ÍNDICE DO DOSSIÊ</p>
+      <ul id="toc" class="p-4 pt-2 space-y-1 text-sm">
+        <li><a href="#origem" class="toc-link block pl-3 py-1 text-[var(--text-dim)] hover:text-white transition-colors">1. Origem e Aparições</a></li>
+        <li><a href="#gravacoes" class="toc-link block pl-3 py-1 text-[var(--text-dim)] hover:text-white transition-colors">2. Gravações Vazadas</a></li>
+        <li><a href="#comportamento" class="toc-link block pl-3 py-1 text-[var(--text-dim)] hover:text-white transition-colors">3. Comportamento e Fraquezas Conhecidas</a></li>
+        <li><a href="#galeria" class="toc-link block pl-3 py-1 text-[var(--text-dim)] hover:text-white transition-colors">4. Galeria de Evidências</a></li>
+      </ul>
+    </nav>
+
+    <!-- ===== SEÇÃO 1 ===== -->
+    <section id="origem" class="mb-14 scroll-mt-24">
+      <h2 class="glitch-hover display text-2xl font-semibold text-white mb-4">1. Origem e Aparições</h2>
+      <p class="mb-4">Os primeiros relatos sobre Carlinhos datam de uma confraternização de fim de ano cuja ata oficial simplesmente diz: <span class="text-[var(--cyan)]">"ele chegou por volta das 23h e nunca mais foi embora, no sentido metafísico do termo."</span> Ninguém se lembra de tê-lo convidado. Ninguém se lembra de não tê-lo convidado. É como se o convite tivesse sido enviado por um número desconhecido no grupo de WhatsApp da faculdade, três anos atrás, e nunca mais apagado.</p>
+      <p class="mb-4">Testemunhos são consistentes em um ponto: ele sempre surge no momento exato em que a conversa começa a ficar boa, carregando um violão que, segundo perícia técnica não solicitada, nunca esteve afinado em nenhum momento da sua existência documentada. Alguns pesquisadores da entidade defendem que o desafinamento é, na verdade, parte do ritual de invocação.</p>
+      <p>Aparições foram registradas em churrascos, rodas de amigos, uma formatura e, alarmantemente, um velório — onde ele teria se aproximado da família enlutada apenas para perguntar <span tabindex="0" class="redacted">"vocês têm um capotraste aí, não?"</span>.</p>
+    </section>
+
+    <!-- ===== SEÇÃO 2 ===== -->
+    <section id="gravacoes" class="mb-14 scroll-mt-24">
+      <h2 class="glitch-hover display text-2xl font-semibold text-white mb-4">2. Gravações Vazadas</h2>
+      <p class="mb-6">Um áudio foi recuperado de um gravador de voz esquecido em cima da geladeira durante o evento conhecido como "A Noite dos 45 Minutos Afinando". A gravação abaixo foi reconstruída digitalmente para fins de arquivamento — ouça por sua conta e risco.</p>
+
+      <div class="tape-player p-5 sm:p-6">
+        <div class="flex items-center gap-4 mb-5">
+          <div id="reel1" class="reel"></div>
+          <div id="reel2" class="reel"></div>
+          <div class="flex-1 mono text-xs text-[var(--text-dim)]">
+            <p class="text-[var(--text)]">FITA_047 — "afinando_de_novo_final_final.wav"</p>
+            <p id="tapeStatus">PARADO</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="playBtn" aria-label="Reproduzir gravação" class="w-11 h-11 shrink-0 rounded-full bg-[var(--red)] hover:bg-red-500 transition-colors flex items-center justify-center">
+            <svg id="playIcon" class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="pauseIcon" class="hidden w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+
+          <div class="flex items-end gap-[3px] h-8" id="vuMeter" aria-hidden="true"></div>
+
+          <div class="flex-1 h-1 rounded-full bg-[var(--surface-2)] overflow-hidden">
+            <div id="progressBar" class="h-full bg-[var(--cyan)]" style="width:0%"></div>
+          </div>
+          <span class="mono text-xs text-[var(--text-dim)] w-10 text-right" id="timeLabel">0:00</span>
+        </div>
+        <p class="mono text-[11px] text-[var(--text-dim)] mt-4">Transcrição parcial: <span tabindex="0" class="redacted">"pera aí, deixa eu só... pera, deixa eu tentar de novo, pera"</span> (repetido 14 vezes).</p>
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 3 ===== -->
+    <section id="comportamento" class="mb-14 scroll-mt-24">
+      <h2 class="glitch-hover display text-2xl font-semibold text-white mb-4">3. Comportamento e Fraquezas Conhecidas</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4">
+          <p class="mono text-xs text-[var(--cyan)] mb-1">PADRÃO 01</p>
+          <h3 class="font-semibold text-white mb-1">Sensibilidade a silêncios</h3>
+          <p class="text-sm text-[var(--text-dim)]">Qualquer pausa na conversa maior que 4 segundos é interpretada como um convite formal para tocar "Wonderwall".</p>
+        </div>
+        <div class="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4">
+          <p class="mono text-xs text-[var(--cyan)] mb-1">PADRÃO 02</p>
+          <h3 class="font-semibold text-white mb-1">Repertório limitado</h3>
+          <p class="text-sm text-[var(--text-dim)]">Domina apenas os acordes G, C e D. Foi visto improvisando os três em músicas que originalmente não os contêm.</p>
+        </div>
+        <div class="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4">
+          <p class="mono text-xs text-[var(--red)] mb-1">FRAQUEZA 01</p>
+          <h3 class="font-semibold text-white mb-1">Alérgico a "boa noite"</h3>
+          <p class="text-sm text-[var(--text-dim)]">A despedida direta e sem ambiguidade é o único método comprovado de dispersão, ainda que temporária.</p>
+        </div>
+        <div class="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4">
+          <p class="mono text-xs text-[var(--red)] mb-1">FRAQUEZA 02</p>
+          <h3 class="font-semibold text-white mb-1">Enfraquece sem plateia</h3>
+          <p class="text-sm text-[var(--text-dim)]">Perde parte de sua força vital caso ninguém filme a apresentação para o Stories.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 4 ===== -->
+    <section id="galeria" class="mb-6 scroll-mt-24">
+      <h2 class="glitch-hover display text-2xl font-semibold text-white mb-4">4. Galeria de Evidências</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+
+        <figure class="evidence-card">
+          <div class="evidence-img-wrap h-48">
+            <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?auto=format&fit=crop&w=800&q=60" alt="Corredor escuro e vazio, tipo de local onde a entidade costuma aparecer" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <figcaption class="p-3 mono text-xs text-[var(--text-dim)]">FIG. 01 — Corredor do apê onde ele apareceu "só pra pegar uma água" às 3h.</figcaption>
+        </figure>
+
+        <figure class="evidence-card">
+          <div class="evidence-img-wrap h-48">
+            <img src="https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=800&q=60" alt="Silhueta em ambiente de festa nebuloso" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <figcaption class="p-3 mono text-xs text-[var(--text-dim)]">FIG. 02 — Último frame antes de ele "só cantar mais uma".</figcaption>
+        </figure>
+
+        <figure class="evidence-card">
+          <div class="evidence-img-wrap h-48">
+            <img src="https://images.unsplash.com/photo-1476370648495-6143aa4e9421?auto=format&fit=crop&w=800&q=60" alt="Estrada vazia à noite" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <figcaption class="p-3 mono text-xs text-[var(--text-dim)]">FIG. 03 — Trajeto registrado por câmera de segurança, sentido desconhecido.</figcaption>
+        </figure>
+
+        <figure class="evidence-card">
+          <div class="evidence-img-wrap h-48">
+            <img src="https://images.unsplash.com/photo-1487621167305-5d248087c724?auto=format&fit=crop&w=800&q=60" alt="Floresta enevoada ao entardecer" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <figcaption class="p-3 mono text-xs text-[var(--text-dim)]">FIG. 04 — Local do último avistamento confirmado (churrasco de aniversário, 2025).</figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+  </article>
+
+  <!-- ============ SIDEBAR / INFOBOX ============ -->
+  <aside class="lg:sticky lg:top-20 lg:self-start">
+    <div class="infobox overflow-hidden">
+      <div class="h-56 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1533130061792-64b345e4a833?auto=format&fit=crop&w=600&q=60" alt="Retrato borrado de figura tocando violão em ambiente escuro" class="w-full h-full object-cover" loading="lazy">
+      </div>
+      <p class="mono text-[11px] text-[var(--text-dim)] px-4 py-2 border-b border-[var(--line)]">Única foto nítida disponível — o resto saiu tremido.</p>
+
+      <dl class="text-sm">
+        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Nome</dt><dd class="text-right text-[var(--text)]">Carlinhos</dd></div>
+        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Idade</dt><dd class="text-right text-[var(--text)]">Indeterminada, sempre "23"</dd></div>
+        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Espécie</dt><dd class="text-right text-[var(--text)]">Homo festae interruptus</dd></div>
+        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Localização atual</dt><dd class="text-right text-[var(--cyan)]">Desconhecida (verifique a varanda)</dd></div>
+        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Nível de perigo</dt><dd class="text-right text-[var(--red)]">Crítico às 2h da manhã</dd></div>
+        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Piada recorrente</dt><dd class="text-right text-[var(--text)]">"só mais uma e eu paro"</dd></div>
+        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Relações</dt><dd class="text-right text-[var(--text)]">O grupo inteiro, contra a vontade</dd></div>
+      </dl>
+    </div>
+
+    <div class="mt-4 border border-[var(--line)] rounded-md bg-[var(--surface)] p-4">
+      <p class="mono text-xs text-[var(--text-dim)] mb-2">PÁGINAS RELACIONADAS</p>
+      <ul class="text-sm space-y-1.5">
+        <li><a href="#" class="text-[var(--cyan)] hover:underline">A Lenda do Capotraste Perdido</a></li>
+        <li><a href="#" class="text-[var(--cyan)] hover:underline">Wonderwall: Uma Análise Forense</a></li>
+        <li><a href="#" class="text-[var(--cyan)] hover:underline">Lista de Festas Encerradas Precocemente</a></li>
+      </ul>
+    </div>
+  </aside>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t border-[var(--line)] mt-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-xs text-[var(--text-dim)]">
+    <p class="mono mb-2">ARQUIVO // WIKI INTERNA — documento não-oficial, extra-oficial e completamente inventado.</p>
+    <p class="mb-4">Todo o conteúdo aqui presente é ficção e paródia produzida entre amigos, sem qualquer pretensão de precisão factual, jornalística ou musical. Nenhum violão foi afinado durante a produção deste site.</p>
+    <div class="flex flex-wrap gap-x-4 gap-y-1">
+      <a href="#" class="hover:text-white transition-colors">Política de Privacidade (inexistente)</a>
+      <a href="#" class="hover:text-white transition-colors">Termos de Uso (ninguém leu)</a>
+      <a href="#" class="hover:text-white transition-colors">Fale com o Arquivo</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- smooth scroll + active TOC link ---------- */
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc-link'));
+  var sections = tocLinks.map(function(l){ return document.querySelector(l.getAttribute('href')); });
+
+  function setActiveLink(){
+    var scrollPos = window.scrollY + 140;
+    var current = sections[0];
+    for (var i = 0; i < sections.length; i++){
+      if (sections[i] && sections[i].offsetTop <= scrollPos) current = sections[i];
+    }
+    tocLinks.forEach(function(l){
+      var target = document.querySelector(l.getAttribute('href'));
+      l.classList.toggle('active', target === current);
+    });
+  }
+  window.addEventListener('scroll', setActiveLink, { passive: true });
+  setActiveLink();
+
+  /* ---------- search filter (simples, sobre título e parágrafos) ---------- */
+  var searchInput = document.getElementById('wikiSearch');
+  var resultsBar = document.getElementById('searchResultsBar');
+  var searchableSections = Array.prototype.slice.call(document.querySelectorAll('main article > section'));
+
+  searchInput.addEventListener('input', function(){
+    var q = searchInput.value.trim().toLowerCase();
+    if (!q){
+      searchableSections.forEach(function(s){ s.style.display = ''; });
+      resultsBar.classList.add('hidden');
+      return;
+    }
+    var matches = 0;
+    searchableSections.forEach(function(s){
+      var hit = s.textContent.toLowerCase().indexOf(q) !== -1;
+      s.style.display = hit ? '' : 'none';
+      if (hit) matches++;
+    });
+    resultsBar.classList.remove('hidden');
+    resultsBar.textContent = matches + (matches === 1 ? ' seção encontrada para "' : ' seções encontradas para "') + searchInput.value + '"';
+  });
+
+  /* ---------- tape player (Web Audio synthesized "leaked recording") ---------- */
+  var playBtn = document.getElementById('playBtn');
+  var playIcon = document.getElementById('playIcon');
+  var pauseIcon = document.getElementById('pauseIcon');
+  var reel1 = document.getElementById('reel1');
+  var reel2 = document.getElementById('reel2');
+  var tapeStatus = document.getElementById('tapeStatus');
+  var progressBar = document.getElementById('progressBar');
+  var timeLabel = document.getElementById('timeLabel');
+  var vuMeter = document.getElementById('vuMeter');
+
+  var BAR_COUNT = 20;
+  for (var i = 0; i < BAR_COUNT; i++){
+    var bar = document.createElement('div');
+    bar.className = 'vu-bar';
+    bar.style.height = '4px';
+    vuMeter.appendChild(bar);
+  }
+  var vuBars = Array.prototype.slice.call(vuMeter.children);
+
+  var audioCtx = null;
+  var isPlaying = false;
+  var duration = 14; // segundos simulados
+  var startTime = 0;
+  var rafId = null;
+  var nodes = [];
+
+  function fmtTime(s){
+    var m = Math.floor(s / 60);
+    var sec = Math.floor(s % 60);
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+
+  function stopNodes(){
+    nodes.forEach(function(n){ try { n.stop(); } catch(e){} });
+    nodes = [];
+  }
+
+  function playTape(){
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+
+    var master = audioCtx.createGain();
+    master.gain.value = 0.05;
+    master.connect(audioCtx.destination);
+
+    // drone base
+    var osc1 = audioCtx.createOscillator();
+    osc1.type = 'sawtooth';
+    osc1.frequency.value = 82;
+    var osc2 = audioCtx.createOscillator();
+    osc2.type = 'triangle';
+    osc2.frequency.value = 123.2;
+
+    var lfo = audioCtx.createOscillator();
+    lfo.frequency.value = 0.15;
+    var lfoGain = audioCtx.createGain();
+    lfoGain.gain.value = 6;
+    lfo.connect(lfoGain);
+    lfoGain.connect(osc1.frequency);
+
+    osc1.connect(master);
+    osc2.connect(master);
+
+    osc1.start(); osc2.start(); lfo.start();
+    nodes.push(osc1, osc2, lfo);
+
+    // "plink" desafinado periódico (simula tentativas de acorde)
+    var plinkTimes = [1.2, 2.6, 4.1, 5.0, 6.8, 8.3, 9.1, 10.6, 12.0];
+    plinkTimes.forEach(function(t){
+      var p = audioCtx.createOscillator();
+      p.type = 'square';
+      p.frequency.value = 180 + Math.random() * 220;
+      var g = audioCtx.createGain();
+      g.gain.value = 0;
+      p.connect(g);
+      g.connect(audioCtx.destination);
+      var when = audioCtx.currentTime + t;
+      g.gain.setValueAtTime(0, when);
+      g.gain.linearRampToValueAtTime(0.06, when + 0.02);
+      g.gain.linearRampToValueAtTime(0, when + 0.3);
+      p.start(when);
+      p.stop(when + 0.35);
+      nodes.push(p);
+    });
+
+    startTime = audioCtx.currentTime;
+    isPlaying = true;
+    playIcon.classList.add('hidden');
+    pauseIcon.classList.remove('hidden');
+    reel1.classList.add('spin');
+    reel2.classList.add('spin');
+    tapeStatus.textContent = 'REPRODUZINDO...';
+    tick();
+
+    setTimeout(function(){
+      if (isPlaying) stopTape();
+    }, duration * 1000);
+  }
+
+  function stopTape(){
+    isPlaying = false;
+    stopNodes();
+    playIcon.classList.remove('hidden');
+    pauseIcon.classList.add('hidden');
+    reel1.classList.remove('spin');
+    reel2.classList.remove('spin');
+    tapeStatus.textContent = 'PARADO';
+    progressBar.style.width = '0%';
+    timeLabel.textContent = '0:00';
+    vuBars.forEach(function(b){ b.style.height = '4px'; });
+    if (rafId) cancelAnimationFrame(rafId);
+  }
+
+  function tick(){
+    if (!isPlaying || !audioCtx) return;
+    var elapsed = audioCtx.currentTime - startTime;
+    var pct = Math.min(elapsed / duration, 1);
+    progressBar.style.width = (pct * 100) + '%';
+    timeLabel.textContent = fmtTime(elapsed);
+    vuBars.forEach(function(b){
+      b.style.height = (4 + Math.random() * 26) + 'px';
+    });
+    if (pct < 1) rafId = requestAnimationFrame(tick);
+  }
+
+  playBtn.addEventListener('click', function(){
+    if (isPlaying) stopTape(); else playTape();
+  });
+})();
+</script>
+
+</body>
+</html>
