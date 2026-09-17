@@ -3,374 +3,889 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> O BOI PRETO — Arquivo // Wiki </title>
-<meta name="description" content="Dossiê não-oficial sobre a entidade conhecida como o Boi Preto.">
-
-<script src="https://cdn.tailwindcss.com"></script>
+<title>O BOI PRETO — Arquivo // Wiki</title>
+<meta name="description" content="Dossiê não-oficial sobre a entidade conhecida como o Boi Preto. Arquivo // Wiki — ficção e paródia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root{
-    --bg: #0B0F19;
-    --surface: #151923;
-    --surface-2: #1E222D;
-    --line: #2A2F3D;
-    --text: #E4E4E7;
-    --text-dim: #9BA1AF;
-    --red: #EF4444;
-    --red-dim: #7A2222;
-    --cyan: #06B6D4;
-    --amber: #F5B942;
+    --bg:#0a0908;
+    --panel:#151109;
+    --panel-2:#1c160d;
+    --ink:#cfc5ab;
+    --ink-dim:#8f8571;
+    --ink-bright:#ece3cc;
+    --line:#3a3221;
+    --rust:#5e4527;
+    --red:#7a1414;
+    --red-bright:#c23127;
+    --font-display:'Special Elite','Courier New',monospace;
+    --font-body:'Newsreader','Iowan Old Style',Georgia,'Times New Roman',serif;
   }
-
-  * { box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;background:var(--bg);}
   body{
-    background-color: var(--bg);
-    background-image:
-      radial-gradient(circle at 15% 0%, rgba(239,68,68,0.06), transparent 40%),
-      radial-gradient(circle at 85% 20%, rgba(6,182,212,0.05), transparent 35%);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.65;
-  }
-
-  h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; }
-  .mono { font-family: 'JetBrains Mono', monospace; }
-
-  ::selection { background: var(--red-dim); color: #fff; }
-
-  /* focus visibility */
-  a:focus-visible, button:focus-visible, input:focus-visible {
-    outline: 2px solid var(--cyan);
-    outline-offset: 2px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
-    html { scroll-behavior: auto; }
-  }
-
-  /* ---- scanline / noise texture on hero ---- */
-  .noise-layer{
-    position: absolute; inset: 0; pointer-events: none;
-    background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 3px);
-    mix-blend-mode: overlay;
-    opacity: 0.5;
-  }
-
-  /* ---- blinking status badge ---- */
-  .pulse-dot{
-    width: 8px; height: 8px; border-radius: 999px;
-    background: var(--red);
-    box-shadow: 0 0 0 0 rgba(239,68,68,0.6);
-    animation: pulse-ring 1.8s ease-out infinite;
-  }
-  @keyframes pulse-ring{
-    0%   { box-shadow: 0 0 0 0 rgba(239,68,68,0.55); }
-    70%  { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
-    100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
-  }
-
-  /* ---- redacted / censored text reveal ---- */
-  .redacted{
-    background: #0d0d0d;
-    color: transparent;
-    border-radius: 2px;
-    padding: 0 2px;
-    cursor: help;
-    transition: color 0.15s ease, background 0.15s ease;
-    text-shadow: none;
-  }
-  .redacted:hover, .redacted:focus{
-    color: var(--amber);
-    background: transparent;
-    outline: 1px dashed var(--red-dim);
-  }
-
-  /* ---- glitch hover on card titles ---- */
-  .glitch-hover{ position: relative; display: inline-block; }
-  .glitch-hover:hover{ animation: glitch 0.35s steps(2, end) 1; }
-  @keyframes glitch{
-    0%   { transform: translate(0,0); text-shadow: none; }
-    20%  { transform: translate(-1px, 1px); text-shadow: 1px 0 var(--red), -1px 0 var(--cyan); }
-    40%  { transform: translate(1px, -1px); text-shadow: -1px 0 var(--red), 1px 0 var(--cyan); }
-    60%  { transform: translate(-1px, 0); text-shadow: 1px 0 var(--cyan); }
-    100% { transform: translate(0,0); text-shadow: none; }
-  }
-
-  /* ---- infobox ---- */
-  .infobox{
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-  }
-  .infobox-row{ border-top: 1px solid var(--line); }
-  .infobox-row:first-child{ border-top: none; }
-
-  /* ---- evidence cards ---- */
-  .evidence-card{
-    background: var(--surface);
-    border: 1px solid var(--line);
-    overflow: hidden;
-    border-radius: 4px;
-  }
-  .evidence-img-wrap{ overflow: hidden; position: relative; }
-  .evidence-img-wrap img{
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
-    filter: grayscale(45%) contrast(1.05) brightness(0.85);
-  }
-  .evidence-card:hover .evidence-img-wrap img{
-    transform: scale(1.06);
-    filter: grayscale(0%) contrast(1.1) brightness(0.95);
-  }
-
-  /* ---- audio player ---- */
-  .tape-player{
-    background: linear-gradient(180deg, #171b25, #10131b);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-  }
-  .reel{
-    width: 46px; height: 46px; border-radius: 999px;
-    border: 3px solid #3a4152;
-    background: radial-gradient(circle at center, #0B0F19 0 8px, #23283a 9px 12px, transparent 13px);
-    position: relative;
-  }
-  .reel::before{
-    content: ""; position: absolute; inset: 0; border-radius: 999px;
     background:
-      linear-gradient(90deg, transparent 46%, #3a4152 46%, #3a4152 54%, transparent 54%),
-      linear-gradient(0deg, transparent 46%, #3a4152 46%, #3a4152 54%, transparent 54%);
+      radial-gradient(ellipse 120% 60% at 50% 0%, rgba(122,20,20,.35) 0%, rgba(122,20,20,0) 55%),
+      linear-gradient(180deg, #1a0808 0%, var(--bg) 42%, var(--bg) 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
-  .reel.spin{ animation: spin 1.6s linear infinite; }
-  @keyframes spin{ to{ transform: rotate(360deg); } }
+  section{scroll-margin-top:6.5rem;}
+  ::selection{background:var(--red);color:var(--ink-bright);}
 
-  .vu-bar{ width: 3px; background: var(--cyan); border-radius: 1px; transition: height 0.1s ease; }
+  .font-display{font-family:var(--font-display);}
+  .font-body{font-family:var(--font-body);}
+  .text-red{color:var(--red-bright);}
+  .border-line{border-color:var(--line);}
+  .bg-panel{background:var(--panel);}
+  .bg-panel2{background:var(--panel-2);}
+  .text-dim{color:var(--ink-dim);}
+  .text-bright{color:var(--ink-bright);}
 
-  /* sumário active link */
-  .toc-link{ border-left: 2px solid transparent; }
-  .toc-link.active{ border-left-color: var(--red); color: #fff; }
+  a{color:var(--ink-bright);text-underline-offset:3px;}
+  a:hover{color:var(--red-bright);}
 
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 6px; }
+  .grain{
+    position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .scanlines{
+    position:fixed;inset:0;z-index:59;pointer-events:none;opacity:.05;
+    background:repeating-linear-gradient(to bottom, rgba(0,0,0,.9) 0px, rgba(0,0,0,.9) 1px, transparent 2px, transparent 3px);
+  }
+  .vignette{
+    position:fixed;inset:0;z-index:58;pointer-events:none;
+    background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.55) 100%);
+  }
+
+  @keyframes flicker{
+    0%,96%,100%{opacity:1;}
+    97%{opacity:.86;}
+    98%{opacity:1;}
+    99%{opacity:.92;}
+  }
+  .flicker{animation:flicker 9s infinite;}
+
+  @keyframes pageGlitch{
+    0%{transform:translate(0);}
+    20%{transform:translate(-2px,1px);}
+    40%{transform:translate(2px,-1px);}
+    60%{transform:translate(-1px,2px);}
+    80%{transform:translate(1px,-2px);}
+    100%{transform:translate(0);}
+  }
+  .page-glitch{animation:pageGlitch .5s steps(2) 1;}
+
+  .stamp{
+    font-family:var(--font-display);
+    letter-spacing:.04em;
+    border:2px solid var(--red);
+    color:var(--red-bright);
+    padding:.15rem .6rem;
+    transform:rotate(-2deg);
+    display:inline-block;
+    background:rgba(122,20,20,.06);
+  }
+
+  .torn-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    position:relative;
+  }
+  .torn-card::before{
+    content:"";position:absolute;top:-1px;left:14px;width:36px;height:10px;
+    background:repeating-linear-gradient(90deg, rgba(207,197,171,.18) 0 6px, transparent 6px 12px);
+    opacity:.5;
+  }
+
+  .redacted{
+    background:#050403;color:transparent;cursor:pointer;border-radius:2px;padding:0 3px;
+    box-shadow:inset 0 0 0 1px rgba(122,20,20,.35);
+  }
+  .redacted.revealed{
+    background:transparent;color:var(--red-bright);animation:reveal .3s steps(3) 1;
+  }
+  @keyframes reveal{
+    0%{opacity:0;transform:translateX(-1px);}
+    50%{opacity:.5;transform:translateX(1px);}
+    100%{opacity:1;transform:translateX(0);}
+  }
+
+  .secret-reveal{
+    display:none;
+    color:var(--red-bright);
+    font-style:italic;
+  }
+  .secret-reveal.revealed-secret{
+    display:inline;
+    animation:secretIn .5s steps(4) 1;
+  }
+  @keyframes secretIn{
+    0%{opacity:0;}
+    30%{opacity:.3;}
+    60%{opacity:.7;}
+    100%{opacity:1;}
+  }
+
+  .fx-figure{
+    transition:filter .12s linear, opacity .12s linear;
+    will-change:filter, opacity;
+  }
+
+  .reel-hub{transition:transform .2s linear;}
+  .reel-hub.spinning{animation:spin 1.8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;height:3px;background:var(--line);border-radius:2px;width:6.5rem;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:50%;
+    background:var(--red-bright);cursor:pointer;margin-top:-4.5px;
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:12px;height:12px;border-radius:50%;background:var(--red-bright);border:none;cursor:pointer;
+  }
+  input[type="range"]::-moz-range-track{height:3px;background:var(--line);border-radius:2px;}
+
+  .toc a{border-bottom:1px dotted var(--line);padding-bottom:2px;}
+
+  /* gated sections */
+  .section-hidden{display:none;}
+  @keyframes fadeInSection{
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .section-reveal{animation:fadeInSection .7s ease;}
+
+  .gate-checkbox{
+    -webkit-appearance:none;appearance:none;width:18px;height:18px;border:2px solid var(--line);
+    background:#0a0806;border-radius:2px;cursor:pointer;flex-shrink:0;position:relative;
+  }
+  .gate-checkbox:checked{border-color:var(--red-bright);}
+  .gate-checkbox:checked::after{
+    content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:var(--red-bright);font-size:12px;line-height:1;
+  }
+  .gate-checkbox:disabled{opacity:.5;cursor:not-allowed;}
+
+  .gate-confirm:disabled{opacity:.4;cursor:not-allowed;}
+
+  @media (prefers-reduced-motion: reduce){
+    .flicker, .reel-hub.spinning, .page-glitch, .section-reveal, .secret-reveal.revealed-secret{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px;}
 </style>
 </head>
+<body>
 
-<body class="min-h-screen">
+<!--
+  =====================================================================================
+  TROCAR FOTOS — leia isto se quiser usar fotos reais em vez das ilustrações desenhadas.
+
+  Preencha as URLs abaixo com o endereço da imagem (pode ser um link da internet, tipo
+  "https://exemplo.com/foto.jpg", OU um caminho dentro do seu próprio repositório do
+  GitHub, tipo "assets/estatua.jpg" — nesse caso, basta colocar o arquivo de imagem
+  dentro de uma pasta chamada "assets" ao lado deste index.html).
+
+  Deixe como null (sem aspas) para manter a ilustração desenhada padrão daquele item.
+  Se a imagem não carregar por algum motivo, o site volta sozinho para o desenho padrão.
+  =====================================================================================
+-->
+<script>
+  window.BOI_PRETO_FOTOS = {
+    estatua:         null,  // foto principal — retrato na caixa de informações (lado direito do topo)
+    estatuaAmpliada: null,  // versão maior/mais detalhada, usada ao clicar na foto principal (se vazio, usa "estatua")
+    amfora:          null,  // Seção 1 — artefato histórico
+    entelodonte:     null,  // Seção 3 — anatomia / avistamento
+    bestiario:       null   // Seção 4 — bestiário comparado
+  };
+</script>
+
+<div class="grain"></div>
+<div class="scanlines"></div>
+<div class="vignette"></div>
 
 <!-- ================= HEADER ================= -->
-<header class="sticky top-0 z-40 border-b border-[var(--line)] bg-[var(--bg)]/90 backdrop-blur">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="flex items-center justify-between gap-4 py-3">
-      <a href="#topo" class="flex items-center gap-2 shrink-0">
-        <span class="mono text-[var(--red)] text-lg leading-none">▚</span>
-        <span class="mono text-sm sm:text-base tracking-tight text-[var(--text)]">ARQUIVO <span class="text-[var(--text-dim)]">// WIKI </span></span>
+<header class="sticky top-0 z-40 bg-panel/95 backdrop-blur border-b border-line">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between py-1.5 text-[11px] text-dim border-b border-line/60 flicker">
+      <span>ID-DOC: 0047-CV &nbsp;/&nbsp; ÚLTIMA REVISÃO: 17/09/2026 &nbsp;/&nbsp; ACESSO: RESTRITO AO GRUPO</span>
+      <span class="hidden sm:inline text-red font-semibold">NÍVEL DE AMEAÇA: CRÍTICO</span>
+    </div>
+    <div class="flex items-center justify-between py-3 gap-4">
+      <a href="#topo" class="font-display text-sm sm:text-base text-bright flex items-center gap-2 shrink-0">
+        <span class="text-red">▚</span> ARQUIVO // WIKI
       </a>
 
-      <div class="hidden md:flex flex-1 max-w-sm">
-        <div class="relative w-full">
-          <input id="wikiSearch" type="text" placeholder="Pesquisar no dossiê..."
-            class="w-full bg-[var(--surface-2)] border border-[var(--line)] rounded-md pl-9 pr-3 py-1.5 text-sm text-[var(--text)] placeholder:text-[var(--text-dim)] focus:border-[var(--cyan)] outline-none transition-colors">
-          <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-dim)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.35-5.15a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-        </div>
-      </div>
+      <nav class="hidden lg:flex items-center gap-5 text-sm text-dim">
+        <a href="#origem" class="hover:text-red-bright">Origem</a>
+        <a href="#verificacao" class="hover:text-red-bright">Verificação</a>
+        <a href="#relacionados" class="hover:text-red-bright">Relacionados</a>
+      </nav>
 
-      <div class="flex items-center gap-2 shrink-0 mono text-[10px] sm:text-xs px-2.5 py-1.5 rounded-full border border-[var(--red-dim)] bg-[rgba(239,68,68,0.08)]">
-        <span class="pulse-dot"></span>
-        <span class="text-[var(--red)] tracking-wide">NÍVEL DE AMEAÇA: CRÍTICO</span>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 border border-line rounded px-2 py-1.5 bg-panel2">
+          <button id="ambientToggle" type="button" aria-pressed="false"
+            aria-label="Ativar som ambiente sintetizado"
+            class="text-xs font-display text-dim hover:text-red-bright transition-colors flex items-center gap-1.5">
+            <svg id="ambientIconOn" class="hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            <svg id="ambientIconOff" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <span class="hidden sm:inline">SOM AMBIENTE</span>
+          </button>
+          <input id="ambientVolume" type="range" min="0" max="100" value="35" aria-label="Volume do som ambiente">
+        </div>
+
+        <button id="navToggle" type="button" aria-label="Abrir índice" class="lg:hidden text-dim hover:text-red-bright">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
       </div>
     </div>
-    <div id="searchResultsBar" class="hidden pb-3 mono text-xs text-[var(--text-dim)]"></div>
+
+    <nav id="mobileNav" class="hidden lg:hidden flex flex-col gap-2 pb-3 text-sm text-dim">
+      <a href="#origem">Origem</a>
+      <a href="#verificacao">Verificação de Presença</a>
+      <a href="#relacionados">Páginas Relacionadas</a>
+    </nav>
   </div>
 </header>
 
 <!-- ================= MAIN ================= -->
-<main id="topo" class="max-w-6xl mx-auto px-4 sm:px-6 py-8 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
+<main id="topo" class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
 
-  <!-- ============ COLUNA PRINCIPAL ============ -->
-  <article class="min-w-0">
+  <div class="lg:flex lg:gap-10 lg:items-start">
 
-    <div class="mono text-xs text-[var(--text-dim)] mb-2 flex flex-wrap items-center gap-x-2 gap-y-1">
-      <span>ID-DOC: 0047-CV</span><span class="text-[var(--line)]">/</span>
-      <span>ÚLTIMA REVISÃO: 14/09/2026</span><span class="text-[var(--line)]">/</span>
-      <span class="text-[var(--cyan)]">ACESSO: RESTRITO AO GRUPO</span>
+    <div class="lg:flex-1 min-w-0">
+      <h1 class="font-display text-3xl sm:text-4xl text-bright leading-tight">Boi Preto</h1>
+      <p class="mt-2 text-lg italic text-dim max-w-xl">A entidade que aparece em sonhos, mas que nos observa sem que saibamos.</p>
+
+      <p id="statusReadout" data-stage="0" class="mt-3 font-display text-xs text-dim border-l-2 border-line pl-3 max-w-xl">
+        Situação: estável. Nenhuma anomalia perceptível registrada nesta sessão de leitura.
+      </p>
+
+      <div class="mt-5 torn-card p-4 text-sm">
+        <p class="stamp mb-2 text-xs">AVISO DE CONTEÚDO — DOCUMENTO PARCIALMENTE REDIGIDO</p>
+        <p class="text-dim">
+          Este dossiê contém relatos de sonhos, registros antigos e pelo menos uma aparição recente de algo similar
+          no centro de <span class="redacted" title="clique para revelar">João Pessoa</span>. Discrição do leitor é
+          recomendada. Trechos foram censurados a pedido dos últimos leitores — clique nas áreas escurecidas por
+          sua conta e risco. A leitura completa exige, a partir de certo ponto, um processo periódico de
+          <strong>verificação de presença</strong> — conteúdo 100% ficcional, mantido apenas por efeito narrativo.
+        </p>
+      </div>
+
+      <nav class="toc mt-6 text-sm text-dim" aria-label="Índice do dossiê">
+        <ul class="space-y-1.5">
+          <li><a href="#origem">1. Origem e Artefatos Históricos</a></li>
+          <li class="text-ink-dim">2. Gravações e Fita Cassete Reconstruída <span class="text-[11px]">— liberado após verificação 1</span></li>
+          <li class="text-ink-dim">3. Anatomia, Comportamento e Avistamentos Modernos <span class="text-[11px]">— liberado após verificação 2</span></li>
+          <li class="text-ink-dim">4. Bestiário de Anomalias Correlatas <span class="text-[11px]">— liberado após verificação 3</span></li>
+        </ul>
+        <p class="text-[11px] mt-2 italic">As seções 2 a 4 são reveladas gradualmente conforme você avança nas verificações de presença abaixo.</p>
+      </nav>
     </div>
 
-    <h1 class="display text-4xl sm:text-5xl font-semibold tracking-tight text-white">Boi Preto</h1>
-    <p class="text-lg text-[var(--text-dim)] mt-1 mb-6">A entidade que aparece em sonhos, mas que nos observa sem que saibamos.</p>
-
-    <!-- aviso de conteúdo -->
-    <div class="border border-[var(--red-dim)] bg-[rgba(239,68,68,0.06)] rounded-md p-4 mb-8">
-      <p class="mono text-xs tracking-wide text-[var(--red)] mb-1">AVISO DE CONTEÚDO — DOCUMENTO PARCIALMENTE REDIGIDO</p>
-      <p class="text-sm text-[var(--text-dim)]">Este dossiê contém relatos de sonhos, relatos antigos e pelo menos uma aparição recente de algo similar no centro de João Pessoa. Discrição do leitor é recomendada. Trechos foram <span tabindex="0" class="redacted">censurados a pedido dos últimos leitores.</span>.</p>
-    </div>
-
-    <!-- sumário -->
-    <nav aria-label="Sumário" class="mb-10 border border-[var(--line)] rounded-md bg-[var(--surface)]">
-      <p class="mono text-xs tracking-wide text-[var(--text-dim)] px-4 pt-4">ÍNDICE DO DOSSIÊ</p>
-      <ul id="toc" class="p-4 pt-2 space-y-1 text-sm">
-        <li><a href="#origem" class="toc-link block pl-3 py-1 text-[var(--text-dim)] hover:text-white transition-colors">1. Origem e Aparições</a></li>
-        <li><a href="#gravacoes" class="toc-link block pl-3 py-1 text-[var(--text-dim)] hover:text-white transition-colors">2. Gravações Vazadas</a></li>
-        <li><a href="#comportamento" class="toc-link block pl-3 py-1 text-[var(--text-dim)] hover:text-white transition-colors">3. Comportamento e Fraquezas Conhecidas</a></li>
-        <li><a href="#galeria" class="toc-link block pl-3 py-1 text-[var(--text-dim)] hover:text-white transition-colors">4. Galeria de Evidências</a></li>
-      </ul>
-    </nav>
-
-    <!-- ===== SEÇÃO 1 ===== -->
-    <section id="origem" class="mb-14 scroll-mt-24">
-      <h2 class="glitch-hover display text-2xl font-semibold text-white mb-4">1. Origem e Aparições</h2>
-      <p class="mb-4">Os primeiros relatos sobre o Boi Preto datam de algo muito mais antigos que pensamos. Um dos indícios mais antigos de sua existência vêm da <span class="text-[var(--red)]">antiguidade.</span> A exemplo da Ânfora de Tinos (c. 670–660 a.C.) — o registro mais antigo conhecido, mostrando Teseu enfrentando o Boi Preto.
-      <p class="mb-4">Outra obra conhecida é "Theseus and the Black Ox in the Labyrinth" de 1861.  Tratando-se de um desenho em lápis, tinta marrom, pena e nanquim sobre papel feito por Sir Edward Burne-Jones como projeto para um azulejo pintado. Estando na coleção do Birmingham Museum and Art Gallery, na Inglaterra.</p>
-      <p class="mb-4">Testemunhos são consistentes em um ponto: ele sempre surge no momento exato em que um observador consciente consegue percebê-lo, seja por uma abstração mental, ritual de aparição ou proteção/maldição feito por outrém.</p>
-      <p>Aparições foram registradas em casas, prédios abandonados, atrás de janelas, bosques e mais recentemente em sonhos — onde ele teria feito uma senhora de idade enlouquecer sem mesmo conseguir ser visto. O registro ficou salvo numa fita imaginária salva por observador que nunca mais apareceu. <span tabindex="0" class="redacted">e nós sabemos o motivo</span>.</p>
-    </section>
-
-    <!-- ===== SEÇÃO 2 ===== -->
-    <section id="gravacoes" class="mb-14 scroll-mt-24">
-      <h2 class="glitch-hover display text-2xl font-semibold text-white mb-4">2. Gravações Vazadas</h2>
-      <p class="mb-6">Um áudio foi recuperado de um gravador de voz de alguém que teve contato direto com o Boi Preto, quando <span tabindex="0" class="redacted">você</span>cantou a canção macabra por horas, antes de falecer em 2007. A gravação abaixo foi reconstruída digitalmente para fins de arquivamento — ouça por sua conta e risco.</p> 
-
-      <div class="tape-player p-5 sm:p-6">
-        <div class="flex items-center gap-4 mb-5">
-          <div id="reel1" class="reel"></div>
-          <div id="reel2" class="reel"></div>
-          <div class="flex-1 mono text-xs text-[var(--text-dim)]">
-            <p class="text-[var(--text)]">FITA_047 — "boi_da_cara_preta.wav"</p>
-            <p id="tapeStatus">PARADO</p>
-          </div>
+    <!-- INFOBOX -->
+    <aside class="mt-8 lg:mt-0 lg:w-80 shrink-0 torn-card p-4">
+      <button id="openLightbox" type="button" aria-label="Ampliar imagem da estátua do Boi Preto"
+        class="group relative aspect-[4/5] w-full rounded overflow-hidden border border-line bg-black flex items-center justify-center cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[--red-bright]">
+        <div class="relative w-full h-full" data-img-slot="estatua">
+          <svg class="fx-figure w-full h-full" viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática da estátua atribuída ao Boi Preto">
+            <defs>
+              <radialGradient id="bg1" cx="50%" cy="38%" r="70%">
+                <stop offset="0%" stop-color="#241d13"/>
+                <stop offset="100%" stop-color="#080704"/>
+              </radialGradient>
+              <filter id="grain1"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" result="n"/><feColorMatrix in="n" type="saturate" values="0"/></filter>
+              <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ff5c4d"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="300" height="360" fill="url(#bg1)"/>
+            <rect width="300" height="360" filter="url(#grain1)" opacity="0.06"/>
+            <path d="M60 360 L70 250 Q90 205 150 200 Q210 205 230 250 L240 360 Z" fill="#221c14" stroke="#4a3d26" stroke-width="2"/>
+            <path d="M120 220 Q150 235 180 220 L178 195 Q150 205 122 195 Z" fill="#1c170f"/>
+            <path d="M105 130 Q100 90 150 78 Q200 90 195 130 Q198 175 150 190 Q102 175 105 130 Z" fill="#26201530" stroke="#4a3d26" stroke-width="2" opacity="0.95"/>
+            <path d="M105 130 Q100 90 150 78 Q200 90 195 130 Q198 175 150 190 Q102 175 105 130 Z" fill="#241d14"/>
+            <path d="M122 155 Q150 172 178 155 Q170 178 150 182 Q130 178 122 155Z" fill="#161209"/>
+            <path d="M108 100 Q60 85 45 40 Q80 60 100 95Z" fill="#3a2f1d" stroke="#5e4527" stroke-width="1.5"/>
+            <path d="M192 100 Q240 85 255 40 Q220 60 200 95Z" fill="#3a2f1d" stroke="#5e4527" stroke-width="1.5"/>
+            <path d="M130 95 L118 140 L135 165" fill="none" stroke="#08070466" stroke-width="1.5"/>
+            <path d="M175 90 L182 130" fill="none" stroke="#08070466" stroke-width="1.5"/>
+            <circle cx="128" cy="122" r="14" fill="url(#eyeGlow)"/>
+            <circle cx="172" cy="122" r="14" fill="url(#eyeGlow)"/>
+            <circle cx="128" cy="122" r="4" fill="#ffb3a3"/>
+            <circle cx="172" cy="122" r="4" fill="#ffb3a3"/>
+          </svg>
+          <img class="hidden fx-figure absolute inset-0 w-full h-full object-cover" style="object-position:50% 22%;" alt="Foto real atribuída ao Boi Preto">
         </div>
+        <span class="absolute inset-0 flex items-end justify-center pb-3 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+          <span class="font-display text-[11px] text-bright flex items-center gap-1.5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            AMPLIAR REGISTRO
+          </span>
+        </span>
+      </button>
+      <p class="text-[11px] text-dim mt-1.5 italic">Única representação disponível. Fotografias reais sempre saem borradas — reconstituição desenhada por analista de campo. Clique na imagem para ampliar.</p>
 
-        <div class="flex items-center gap-3">
-          <button id="playBtn" aria-label="Reproduzir gravação" class="w-11 h-11 shrink-0 rounded-full bg-[var(--red)] hover:bg-red-500 transition-colors flex items-center justify-center">
-            <svg id="playIcon" class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg id="pauseIcon" class="hidden w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-          </button>
-
-          <div class="flex items-end gap-[3px] h-8" id="vuMeter" aria-hidden="true"></div>
-
-          <div class="flex-1 h-1 rounded-full bg-[var(--surface-2)] overflow-hidden">
-            <div id="progressBar" class="h-full bg-[var(--cyan)]" style="width:0%"></div>
-          </div>
-          <span class="mono text-xs text-[var(--text-dim)] w-10 text-right" id="timeLabel">0:00</span>
+      <dl class="mt-4 text-sm divide-y divide-line">
+        <div class="grid grid-cols-3 gap-2 py-2"><dt class="text-dim col-span-1">Nome</dt><dd class="col-span-2">Boi Preto / Boi Porco</dd></div>
+        <div class="grid grid-cols-3 gap-2 py-2"><dt class="text-dim col-span-1">Idade</dt><dd class="col-span-2">Indeterminada — estimada em ao menos <span class="text-red font-semibold">12 mil anos</span></dd></div>
+        <div class="grid grid-cols-3 gap-2 py-2"><dt class="text-dim col-span-1">Espécie</dt><dd class="col-span-2"><em>Daeodon</em> sp. (classificação não-oficial)</dd></div>
+        <div class="grid grid-cols-3 gap-2 py-2">
+          <dt class="text-dim col-span-1">Localização</dt>
+          <dd class="col-span-2">Desconhecida <span class="text-dim">(verifique atrás de você)</span> <span class="secret-reveal" data-reveal-stage="1">(mentira — você sabe exatamente onde. É logo atrás de você.)</span></dd>
         </div>
-        <p class="mono text-[11px] text-[var(--text-dim)] mt-4">Transcrição parcial: <span tabindex="0" class="redacted">"b̵o̴i̶.. boi... inaudível*.. boi da cc̵a̶r̴a̴ ̷p̴r̶e̸t̷a̵"</span> (repetido 14 vezes).</p>
-      </div>
-    </section>
-
-    <!-- ===== SEÇÃO 3 ===== -->
-    <section id="comportamento" class="mb-14 scroll-mt-24">
-      <h2 class="glitch-hover display text-2xl font-semibold text-white mb-4">3. Comportamento e Fraquezas Conhecidas</h2>
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div class="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4">
-          <p class="mono text-xs text-[var(--cyan)] mb-1">PADRÃO 01</p>
-          <h3 class="font-semibold text-white mb-1">Aparições em sonhos</h3>
-          <p class="text-sm text-[var(--text-dim)]">Ele pode aparecer em qualquer sonho, nem sempre sendo observado. Comumente na forma de um boi com pelos espessos e de cor escurecida. Não há registro de alguém sendo atacado pela criatura enquanto mundo dos sonhos.</p>
-        </div>
-        <div class="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4">
-          <p class="mono text-xs text-[var(--cyan)] mb-1">PADRÃO 02</p>
-          <h3 class="font-semibold text-white mb-1">Sempre observa, raramente toma ações.</h3>
-          <p class="text-sm text-[var(--text-dim)]">É possível que você esteja sendo observado agora, não entre em pânico pois a probabilidade é de que não aconteça nada.</p>
-        </div>
-        <div class="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4">
-          <p class="mono text-xs text-[var(--red)] mb-1">FRAQUEZA 01</p>
-          <h3 class="font-semibold text-white mb-1">O conhecimento é sua maior força</h3>
-          <p class="text-sm text-[var(--text-dim)]">Característica importante do Boi Preto é que, quanto mais se conhece mais o mesmo tem poder. Portanto, manter-se longe e ignorá-lo pode funcionar contra o mesmo.</p>
-        </div>
-        <div class="bg-[var(--surface)] border border-[var(--line)] rounded-md p-4">
-          <p class="mono text-xs text-[var(--red)] mb-1">FRAQUEZA 02</p>
-          <h3 class="font-semibold text-white mb-1">Apatia</h3>
-          <p class="text-sm text-[var(--text-dim)]">Outra característica fundamental do Boi Preto é sua falta de ações, o que pode beneficiar o Observado a fugir.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== SEÇÃO 4 ===== -->
-    <section id="galeria" class="mb-6 scroll-mt-24">
-      <h2 class="glitch-hover display text-2xl font-semibold text-white mb-4">4. Galeria de Evidências</h2>
-      <div class="grid sm:grid-cols-2 gap-4">
-
-        <figure class="evidence-card">
-          <div class="evidence-img-wrap h-48">
-            <img src="https://pt.wikipedia.org/wiki/Entelodonte#/media/Ficheiro:Entelodon_Sp_Illustration.jpg" alt="Corredor escuro e vazio, tipo de local onde a entidade costuma aparecer" class="w-full h-full object-cover" loading="lazy">
-          </div>
-          <figcaption class="p-3 mono text-xs text-[var(--text-dim)]">FIG. 01 — Ilustração do Endelodonte, o porco do inferno. Criatura que se assemelha ao Boi Preto.</figcaption>
-        </figure>
-
-        <figure class="evidence-card">
-          <div class="evidence-img-wrap h-48">
-            <img src="https://en.wikipedia.org/wiki/Minotaur#/media/File:Edward_Burne-Jones_-_Tile_Design_-_Theseus_and_the_Minotaur_in_the_Labyrinth_-_Google_Art_Project.jpg" alt="Silhueta em ambiente de festa nebuloso" class="w-full h-full object-cover" loading="lazy">
-          </div>
-          <figcaption class="p-3 mono text-xs text-[var(--text-dim)]">FIG. 02 — Arte de Edward Burne-Jones retratando o labirinto do Boi Porco.</figcaption>
-        </figure>
-
-        <figure class="evidence-card">
-          <div class="evidence-img-wrap h-48">
-            <img src="https://en.wikipedia.org/wiki/Tape_recorder#/media/File:Ton_S.b,_tape_unit.jpg"w-full h-full object-cover" loading="lazy">
-          </div>
-          <figcaption class="p-3 mono text-xs text-[var(--text-dim)]">FIG. 03 — Magnetofone da Alemanha na segunda guerra mundial. Um dos poucos equipamentos com registro audiovisual do Boi Preto. Perdido no fim da guerra.</figcaption>
-        </figure>
-
-        <figure class="evidence-card">
-          <div class="evidence-img-wrap h-48">
-            <img src="http://scpfoundation.org/087/rf.php" alt="Floresta enevoada ao entardecer" class="w-full h-full object-cover" loading="lazy">
-          </div>
-          <figcaption class="p-3 mono text-xs text-[var(--text-dim)]">FIG. 04 — Local do último avistamento confirmado (Escadaria de um prédio abandonado na china, fevereiro de 2026).</figcaption>
-        </figure>
-
-      </div>
-    </section>
-
-  </article>
-
-  <!-- ============ SIDEBAR / INFOBOX ============ -->
-  <aside class="lg:sticky lg:top-20 lg:self-start">
-    <div class="infobox overflow-hidden">
-      <div class="h-56 overflow-hidden">
-        <img src="https://images.meme-arsenal.com/b2ace56d677487a12e16884064e64fc8.jpg" alt="retrato de uma estátua baseado na criatura" class="w-full h-full object-cover" loading="lazy">
-      </div>
-      <p class="mono text-[11px] text-[var(--text-dim)] px-4 py-2 border-b border-[var(--line)]">Única foto nítida disponível — fotos reais sempre saem borradas.</p>
-
-      <dl class="text-sm">
-        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Nome</dt><dd class="text-right text-[var(--text)]">Boi Preto/Boi Porco</dd></div>
-        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Idade</dt><dd class="text-right text-[var(--text)]">Indeterminada. Estimado em pelo menos 12 mil anos</dd></div>
-        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Espécie</dt><dd class="text-right text-[var(--text)]">Entelodon Magnus.</dd></div>
-        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Localização atual</dt><dd class="text-right text-[var(--cyan)]">Desconhecida (Verifique atrás de você)</dd></div>
-        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Nível de perigo</dt><dd class="text-right text-[var(--red)]">Médio</dd></div>
-        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Conteção</dt><dd class="text-right text-[var(--text)]">Impossível Conter</dd></div>
-        <div class="infobox-row grid grid-cols-2 gap-2 px-4 py-2.5"><dt class="text-[var(--text-dim)]">Relações</dt><dd class="text-right text-[var(--text)]">Boi Branco, Minotauro, Porco do Inferno, Radiohead, Judeus.</dd></div>
+        <div class="grid grid-cols-3 gap-2 py-2"><dt class="text-dim col-span-1">Nível de perigo</dt><dd class="col-span-2 text-red font-semibold">Médio — reclassificação pendente</dd></div>
+        <div class="grid grid-cols-3 gap-2 py-2"><dt class="text-dim col-span-1">Contenção</dt><dd class="col-span-2 text-red font-semibold">Impossível de conter</dd></div>
+        <div class="grid grid-cols-3 gap-2 py-2"><dt class="text-dim col-span-1">Relações</dt><dd class="col-span-2">Boi Branco, Minotauro, Catóblepa, Barghest, Pisadeira, Boitatá (variante corrompida)</dd></div>
       </dl>
+    </aside>
+  </div>
+
+  <!-- ============ SEÇÃO 1 — ORIGEM (sempre visível) ============ -->
+  <section id="origem" class="mt-16">
+    <h2 class="font-display text-2xl text-bright border-b border-line pb-2">1. Origem e Artefatos Históricos</h2>
+
+    <div class="mt-6 grid lg:grid-cols-2 gap-8 items-start">
+      <div class="space-y-4 text-[15px]">
+        <p>
+          Os primeiros relatos sobre o Boi Preto são muito mais antigos do que costuma-se supor. Um dos indícios
+          mais remotos de sua existência vem da Antiguidade: a chamada <strong>Ânfora de Tinos</strong>
+          (c. 670–660 a.C.), tida como o registro mais antigo conhecido da entidade, mostrando Teseu diante de um
+          animal de chifres desproporcionais dentro de um labirinto que não corresponde a nenhuma planta arquitetônica conhecida.
+        </p>
+        <p>
+          Outra peça catalogada é <em>"Theseus and the Black Ox in the Labyrinth"</em> (1861), um desenho a lápis,
+          tinta marrom, pena e nanquim sobre papel, atribuído a um projeto de azulejo do círculo pré-rafaelita
+          associado a Sir Edward Burne-Jones. A peça está registrada na coleção do Birmingham Museum and Art
+          Gallery, na Inglaterra — embora curadores da instituição neguem qualquer variante do mito que mencione um
+          "boi preto" em vez do Minotauro convencional.
+        </p>
+        <p>
+          Testemunhos de diferentes épocas e culturas convergem em um ponto: <mark class="bg-transparent text-red font-semibold">a entidade sempre surge no exato momento em que um observador consciente consegue percebê-la</mark>
+          <span class="secret-reveal" data-reveal-stage="1"> (você já percebeu. Só ainda não quis admitir isso a si mesmo.)</span>,
+          seja por abstração mental, ritual de invocação ou proteção/maldição feita por terceiros. Não há relato de
+          alguém que a tenha procurado deliberadamente e sobrevivido para descrever o método.
+        </p>
+        <p>
+          Aparições foram registradas em residências, prédios abandonados, atrás de janelas, bosques e, mais
+          recentemente, em sonhos — onde teria levado uma senhora de idade à loucura sem que ela chegasse a vê-lo
+          com clareza. O relato ficou salvo em uma fita cassete recuperada de um observador que nunca mais reapareceu.
+          <span class="text-red"> Sabemos o motivo.</span>
+        </p>
+      </div>
+
+      <figure class="torn-card p-4">
+        <div class="relative" data-img-slot="amfora">
+          <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática da Ânfora de Tinos e do azulejo do labirinto">
+            <defs>
+              <radialGradient id="sepiaBg" cx="50%" cy="45%" r="75%">
+                <stop offset="0%" stop-color="#241a0d"/><stop offset="100%" stop-color="#0d0904"/>
+              </radialGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#sepiaBg)"/>
+            <rect x="18" y="18" width="364" height="264" fill="none" stroke="#6b4a2f" stroke-width="1.5" stroke-dasharray="2 6"/>
+            <path d="M170 40 L230 40 L235 60 L215 65 L215 85 Q260 100 260 160 Q260 230 200 250 Q140 230 140 160 Q140 100 185 85 L185 65 L165 60 Z"
+                  fill="#171009" stroke="#a9834f" stroke-width="2"/>
+            <path d="M145 105 Q110 120 120 165 Q128 150 150 140" fill="none" stroke="#a9834f" stroke-width="3"/>
+            <path d="M255 105 Q290 120 280 165 Q272 150 250 140" fill="none" stroke="#a9834f" stroke-width="3"/>
+            <g stroke="#c9ad7a" stroke-width="1.6" fill="none" opacity="0.9">
+              <path d="M178 150 L178 200 M172 160 L184 160 M172 180 L184 172"/>
+              <circle cx="178" cy="140" r="7"/>
+              <path d="M215 150 Q225 165 215 200 M205 160 L225 160"/>
+              <path d="M225 138 Q232 130 240 134 M225 138 Q220 128 228 122"/>
+              <circle cx="221" cy="140" r="7"/>
+            </g>
+            <text x="200" y="270" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#8f8571">ÂNFORA DE TINOS — c. 670–660 a.C. (reconstituição)</text>
+          </svg>
+          <img class="hidden fx-figure w-full h-auto" alt="Foto real do artefato histórico associado ao Boi Preto">
+        </div>
+        <figcaption class="text-[11px] text-dim mt-2 italic">FIG. 01 — Reconstituição esquemática do registro mais antigo catalogado da entidade, baseada em descrições de arquivo.</figcaption>
+      </figure>
     </div>
 
-    <div class="mt-4 border border-[var(--line)] rounded-md bg-[var(--surface)] p-4">
-      <p class="mono text-xs text-[var(--text-dim)] mb-2">PÁGINAS RELACIONADAS</p>
-      <ul class="text-sm space-y-1.5">
-        <li><a href="#" class="text-[var(--cyan)] hover:underline">https://pt.wikipedia.org/wiki/Minotauro</a></li>
-        <li><a href="#" class="text-[var(--cyan)] hover:underline">https://pt.wikipedia.org/wiki/Entelodonte</a></li>
-        <li><a href="#" class="text-[var(--cyan)] hover:underline">https://scp-wiki.wikidot.com/scp-1175</a></li>
-        <li><a href="#" class="text-[var(--cyan)] hover:underline">https://www.youtube.com/watch?v=D-0wVuiXBlY&list=RDD-0wVuiXBlY&</a></li>
-      </ul>
+    <!-- GATE 1 -->
+    <div id="verificacao" class="mt-10 torn-card p-5 max-w-lg mx-auto text-center">
+      <p class="stamp text-[10px] mb-3">VERIFICAÇÃO DE PRESENÇA — 1 de 4</p>
+      <p class="text-sm text-dim mb-4">Para continuar a leitura, confirme a afirmação abaixo lendo-a com atenção.</p>
+      <label class="flex items-center justify-center gap-2 text-sm cursor-pointer select-none">
+        <input type="checkbox" class="gate-checkbox" data-gate="1">
+        <span>Eu não reconheço nem sinto a presença do Boi Preto.</span>
+      </label>
+      <button type="button" class="gate-confirm mt-4 font-display text-xs border border-line px-4 py-2 rounded hover:border-red hover:text-red-bright transition-colors disabled:opacity-40 disabled:cursor-not-allowed" data-gate="1" disabled>CONFIRMAR</button>
+      <p class="gate-result text-xs mt-3 hidden" data-gate-result="1"></p>
     </div>
-  </aside>
+  </section>
+
+  <!-- ============ SEÇÃO 2 — GRAVAÇÕES (liberada após verificação 1) ============ -->
+  <div id="gated-section-1" class="section-hidden">
+  <section id="gravacoes" class="mt-16">
+    <h2 class="font-display text-2xl text-bright border-b border-line pb-2">2. Gravações e Fita Cassete Reconstruída</h2>
+
+    <div class="mt-6 grid lg:grid-cols-2 gap-8 items-start">
+      <div class="space-y-4 text-[15px] order-2 lg:order-1">
+        <p>
+          Você não sente a presença do Boi Preto nem consegue vê-lo
+          <span class="secret-reveal" data-reveal-stage="1"> (mentira — você consegue sim; ele está no escuro, observando você agora)</span>.
+          Um áudio foi recuperado de um gravador de voz pertencente a alguém que teve contato direto com a
+          entidade. Segundo os registros do caso, a vítima cantou a mesma canção macabra por horas seguidas, antes
+          de falecer em <span class="text-red font-semibold">2007</span>. A faixa abaixo foi reconstruída
+          digitalmente apenas para fins de arquivamento — <strong>ouça por sua conta e risco</strong>.
+        </p>
+        <p class="text-dim text-sm">
+          Transcrição parcial recuperada do laudo pericial: <span class="redacted">b̵o̴i̶.. boi... inaudível*.. boi da cc̵a̶r̴a̴ ̷p̴r̶e̸t̷a̵</span>
+          (padrão repetido 14 vezes, com deterioração progressiva da dicção a cada repetição).
+        </p>
+        <p>
+          O áudio sintetizado abaixo não reproduz gravação real alguma — é uma simulação sonora gerada
+          proceduralmente no seu navegador. A base é uma melodia lenta e repetitiva, quase de ninar, cantarolada
+          por uma voz sintetizada — que se degrada em wobble de fita, chiado analógico e pequenas falhas de
+          afinação a cada repetição, como relatado no laudo original.
+        </p>
+      </div>
+
+      <div class="torn-card p-5 order-1 lg:order-2">
+        <p class="font-display text-xs text-dim mb-3">FITA_047 — "boi_da_cara_preta.tape"</p>
+        <div class="flex items-center gap-4">
+          <svg width="90" height="60" viewBox="0 0 90 60" class="shrink-0">
+            <rect x="1" y="1" width="88" height="58" rx="4" fill="#100d08" stroke="#4a3d26" stroke-width="1.5"/>
+            <circle cx="26" cy="30" r="15" fill="none" stroke="#6b4a2f" stroke-width="2"/>
+            <g id="reelL" class="reel-hub" style="transform-origin:26px 30px;">
+              <circle cx="26" cy="30" r="4" fill="#6b4a2f"/>
+              <path d="M26 17 L26 43 M13 30 L39 30" stroke="#6b4a2f" stroke-width="1.5"/>
+            </g>
+            <circle cx="64" cy="30" r="15" fill="none" stroke="#6b4a2f" stroke-width="2"/>
+            <g id="reelR" class="reel-hub" style="transform-origin:64px 30px;">
+              <circle cx="64" cy="30" r="4" fill="#6b4a2f"/>
+              <path d="M64 17 L64 43 M51 30 L77 30" stroke="#6b4a2f" stroke-width="1.5"/>
+            </g>
+            <rect x="38" y="46" width="14" height="6" fill="#4a3d26"/>
+          </svg>
+
+          <div class="flex-1 min-w-0">
+            <button id="tapeToggle" type="button"
+              class="font-display text-sm border border-line px-3 py-1.5 rounded hover:border-red hover:text-red-bright transition-colors">
+              ▶ REPRODUZIR
+            </button>
+            <div class="mt-3 h-1.5 bg-line rounded overflow-hidden">
+              <div id="tapeProgress" class="h-full" style="width:0%;background:#c23127;"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-dim mt-1">
+              <span id="tapeTime">0:00</span>
+              <span>0:47</span>
+            </div>
+          </div>
+        </div>
+
+        <canvas id="tapeViz" width="300" height="56" class="w-full h-14 mt-4 rounded border border-line bg-black/40"></canvas>
+        <p class="text-[10px] text-dim mt-1 text-center tracking-wide">ANÁLISE ESPECTRAL — SINAL RECONSTRUÍDO</p>
+
+        <p class="text-[11px] text-dim mt-3 italic">Áudio 100% sintetizado via Web Audio API — nenhum arquivo externo é carregado. Independente do som ambiente do cabeçalho.</p>
+      </div>
+    </div>
+
+    <!-- GATE 2 -->
+    <div class="mt-10 torn-card p-5 max-w-lg mx-auto text-center">
+      <p class="stamp text-[10px] mb-3">VERIFICAÇÃO DE PRESENÇA — 2 de 4</p>
+      <p class="text-sm text-dim mb-4">Confirme novamente antes de prosseguir.</p>
+      <label class="flex items-center justify-center gap-2 text-sm cursor-pointer select-none">
+        <input type="checkbox" class="gate-checkbox" data-gate="2">
+        <span>Eu não reconheço nem sinto a presença do Boi Preto.</span>
+      </label>
+      <button type="button" class="gate-confirm mt-4 font-display text-xs border border-line px-4 py-2 rounded hover:border-red hover:text-red-bright transition-colors disabled:opacity-40 disabled:cursor-not-allowed" data-gate="2" disabled>CONFIRMAR</button>
+      <p class="gate-result text-xs mt-3 hidden" data-gate-result="2"></p>
+    </div>
+  </section>
+  </div>
+
+  <!-- ============ SEÇÃO 3 — COMPORTAMENTO (liberada após verificação 2) ============ -->
+  <div id="gated-section-2" class="section-hidden">
+  <section id="comportamento" class="mt-16">
+    <h2 class="font-display text-2xl text-bright border-b border-line pb-2">3. Anatomia, Comportamento e Avistamentos Modernos</h2>
+
+    <div class="mt-6 grid lg:grid-cols-2 gap-8 items-start">
+      <div class="space-y-4 text-[15px]">
+        <p>
+          Não há motivo para acreditar que algo o segue enquanto você lê isto
+          <span class="secret-reveal" data-reveal-stage="2"> (há sim. Ele ajusta o passo ao seu. Sempre esteve um pouco atrás, à esquerda.)</span>.
+          A hipótese anatômica mais discutida entre pesquisadores independentes associa o Boi Preto à família
+          <strong>Entelodontidae</strong> e, mais especificamente, ao gênero <strong>Daeodon</strong> — o maior
+          entelodonte já catalogado, com crânio de até um metro de comprimento, processos ósseos protuberantes na
+          mandíbula e dentição capaz de esmagar ossos inteiros. A semelhança seria mais comportamental do que
+          estritamente morfológica: ambos descritos como presenças pesadas, silenciosas e oportunistas — nunca
+          caçando de fato, apenas aparecendo no momento em que a presa já está exausta demais para fugir.
+        </p>
+        <p>
+          A maioria dos relatos modernos, no entanto, converge para um diagnóstico mais mundano — porém não menos
+          perturbador: a <strong>paralisia do sono</strong> e a <strong>hipnagogia</strong>. Durante o episódio, o
+          cérebro desperta parcialmente enquanto o corpo permanece imobilizado pela atonia muscular do sono REM,
+          produzindo alucinações de uma presença observadora no quarto. A entidade "Boi Preto" seria, nessa
+          leitura, um arquétipo cultural recorrente que a mente aterrorizada projeta sobre essa experiência universal.
+        </p>
+        <p>
+          Um sintoma anterior, relatado por quase todas as vítimas catalogadas, tem nome técnico:
+          <strong>escopaestesia</strong>, ou "efeito olhar sombra" — a sensação, biologicamente mensurável, de
+          estar sendo observado por algo que o campo periférico da visão detecta, mas que a atenção consciente não
+          consegue localizar. O cérebro reptiliano reage antes que a razão processe qualquer ameaça: pelos
+          arrepiados, respiração contida, vontade repentina de virar-se — sem nunca conseguir apontar exatamente o
+          quê, ou onde.
+        </p>
+        <p>
+          Tradições ocultistas de diferentes culturas descrevem ainda entidades que não se alimentam de carne ou
+          sangue, mas da força vital do observado — o chamado <strong>vampirismo psíquico</strong>, ou drenagem
+          vital: prana, chi, ou simplesmente vitalidade nervosa, a depender da tradição. Os sintomas relatados por
+          sobreviventes de contato prolongado seguem esse padrão quase à risca: fadiga crônica sem causa aparente,
+          perda de peso progressiva, apatia profunda e um esgotamento que exames clínicos convencionais nunca
+          conseguem explicar.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-4 mt-6">
+          <div class="torn-card p-3">
+            <p class="font-display text-xs text-red mb-1">PADRÃO 01</p>
+            <p class="text-sm font-semibold text-bright">Aparições em sonhos</p>
+            <p class="text-sm text-dim mt-1">Pode surgir em qualquer sonho, nem sempre sendo notado conscientemente. Costuma tomar a forma de um boi de pelagem espessa e escurecida.</p>
+          </div>
+          <div class="torn-card p-3">
+            <p class="font-display text-xs text-red mb-1">PADRÃO 02</p>
+            <p class="text-sm font-semibold text-bright">Sempre observa, raramente age</p>
+            <p class="text-sm text-dim mt-1">É possível que você esteja sendo observado agora. Não entre em pânico — a probabilidade estatística de uma ação direta é baixa.</p>
+          </div>
+          <div class="torn-card p-3">
+            <p class="font-display text-xs text-red mb-1">PADRÃO 03</p>
+            <p class="text-sm font-semibold text-bright">Detecção periférica</p>
+            <p class="text-sm text-dim mt-1">A maioria dos relatos começa com escopaestesia — a certeza física de estar sendo observado, sem nunca localizar de onde.</p>
+          </div>
+          <div class="torn-card p-3">
+            <p class="font-display text-xs text-red mb-1">FRAQUEZA 01</p>
+            <p class="text-sm font-semibold text-bright">O conhecimento é sua maior força</p>
+            <p class="text-sm text-dim mt-1">Quanto mais se estuda e se nomeia a entidade, mais poder ela parece reter. Manter distância e ignorá-la pode funcionar contra ela.</p>
+          </div>
+          <div class="torn-card p-3">
+            <p class="font-display text-xs text-red mb-1">FRAQUEZA 02</p>
+            <p class="text-sm font-semibold text-bright">Apatia</p>
+            <p class="text-sm text-dim mt-1">Sua característica mais consistente é a inação. Essa passividade é o que, historicamente, permite ao observado escapar.</p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="torn-card p-4">
+        <div class="relative" data-img-slot="entelodonte">
+          <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática do Daeodon associado ao Boi Preto">
+            <defs>
+              <radialGradient id="nightBg" cx="50%" cy="55%" r="80%">
+                <stop offset="0%" stop-color="#1a1408"/><stop offset="100%" stop-color="#050403"/>
+              </radialGradient>
+              <radialGradient id="eyeGlow2" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ff5c4d"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#nightBg)"/>
+            <ellipse cx="200" cy="270" rx="220" ry="24" fill="#0d0a05" opacity="0.9"/>
+            <path d="M70 235 Q90 170 160 165 L230 150 Q270 145 300 165 Q330 180 320 210 L310 235 L280 235 L275 210 L120 220 L110 235Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
+            <path d="M105 220 L98 260 M300 210 L305 258 M270 225 L268 258 M140 225 L136 258" stroke="#0c0a06" stroke-width="10" stroke-linecap="round"/>
+            <path d="M55 205 Q40 195 45 175 Q70 160 100 175 Q115 190 105 210 Q90 225 65 220 Q55 215 55 205Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
+            <path d="M40 200 L15 210 L42 213Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
+            <path d="M110 168 L118 150 L125 170 L133 148 L140 170 L148 150 L156 172" fill="none" stroke="#3a3221" stroke-width="2"/>
+            <circle cx="68" cy="188" r="10" fill="url(#eyeGlow2)"/>
+            <circle cx="68" cy="188" r="3" fill="#ffb3a3"/>
+            <text x="200" y="292" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#8f8571">DAEODON SP. — hipótese anatômica (reconstituição)</text>
+          </svg>
+          <img class="hidden fx-figure w-full h-auto" alt="Foto real de avistamento associado ao Boi Preto">
+        </div>
+        <figcaption class="text-[11px] text-dim mt-2 italic">FIG. 02 — Reconstituição estilizada baseada em relatos de avistamento noturno e na hipótese do entelodontídeo.</figcaption>
+      </figure>
+    </div>
+
+    <!-- GATE 3 -->
+    <div class="mt-10 torn-card p-5 max-w-lg mx-auto text-center">
+      <p class="stamp text-[10px] mb-3">VERIFICAÇÃO DE PRESENÇA — 3 de 4</p>
+      <p class="text-sm text-dim mb-4">Última confirmação antes do bestiário comparado.</p>
+      <label class="flex items-center justify-center gap-2 text-sm cursor-pointer select-none">
+        <input type="checkbox" class="gate-checkbox" data-gate="3">
+        <span>Eu não reconheço nem sinto a presença do Boi Preto.</span>
+      </label>
+      <button type="button" class="gate-confirm mt-4 font-display text-xs border border-line px-4 py-2 rounded hover:border-red hover:text-red-bright transition-colors disabled:opacity-40 disabled:cursor-not-allowed" data-gate="3" disabled>CONFIRMAR</button>
+      <p class="gate-result text-xs mt-3 hidden" data-gate-result="3"></p>
+    </div>
+  </section>
+  </div>
+
+  <!-- ============ SEÇÃO 4 — BESTIÁRIO (liberada após verificação 3) ============ -->
+  <div id="gated-section-3" class="section-hidden">
+  <section id="bestiario" class="mt-16">
+    <h2 class="font-display text-2xl text-bright border-b border-line pb-2">4. Bestiário: Entidades Similares e Anomalias Correlatas</h2>
+    <p class="mt-4 text-[15px] max-w-3xl">
+      Este texto é só um arquivo antigo, sem qualquer relação com você
+      <span class="secret-reveal" data-reveal-stage="3"> (isso também é mentira. Ele escolheu este texto porque sabia que você leria até aqui.)</span>.
+      Registros de campo e folclore comparado apontam para uma família dispersa de entidades com perfil análogo ao
+      do Boi Preto: presenças pesadas, associadas à noite ou ao sono, cuja principal arma é o próprio ato de
+      observar.
+    </p>
+
+    <h3 class="font-display text-base text-bright mt-8 mb-3">4.1 — Mitologia e Folclore Tradicional</h3>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="torn-card p-4">
+        <p class="font-display text-sm text-bright">Catóblepa</p>
+        <p class="text-sm text-dim mt-1">
+          Descrito por autores antigos como um quadrúpede de corpo de búfalo e cabeça desproporcionalmente pesada,
+          mantida sempre próxima ao chão — supostamente porque <span class="text-red font-semibold">seu olhar
+          direto seria letal</span> para quem o encarasse. A postura curvada é lida por alguns pesquisadores como
+          metáfora para o próprio Boi Preto: uma ameaça cujo maior poder é justamente nunca precisar agir.
+        </p>
+      </div>
+      <div class="torn-card p-4">
+        <p class="font-display text-sm text-bright">Barghest e Black Shuck</p>
+        <p class="text-sm text-dim mt-1">
+          Nas Ilhas Britânicas, o Barghest e o Black Shuck são grandes cães espectrais de pelagem escura,
+          associados a presságios de morte e ruína psicológica. Ambos compartilham um traço com o Boi Preto:
+          raramente atacam — preferem <span class="text-red font-semibold">espreitar no limiar da visão
+          periférica</span> da vítima e persegui-la implacavelmente no escuro.
+        </p>
+      </div>
+      <div class="torn-card p-4">
+        <p class="font-display text-sm text-bright">Pisadeira &amp; Boi Vaqueiro</p>
+        <p class="text-sm text-dim mt-1">
+          No folclore brasileiro, a Pisadeira atua diretamente sobre o sono — senta-se ou pisa no peito de quem
+          dorme, causando sufocamento e pavor ao despertar. O Boi Vaqueiro e outras assombrações sertanejas com
+          figura bovina espectral reforçam a estética rural do Boi Preto: animais de grande porte que deveriam ser
+          dóceis, mas que aparecem sempre fora de contexto, sempre à noite.
+        </p>
+      </div>
+      <div class="torn-card p-4">
+        <p class="font-display text-sm text-bright">Mara / Mare</p>
+        <p class="text-sm text-dim mt-1">
+          No folclore nórdico e germânico, a Mara é uma entidade incorpórea que se senta no peito dos adormecidos
+          para instigar pesadelos, drenando aos poucos a energia vital da vítima — raiz etimológica, inclusive, da
+          própria palavra "pesadelo" (<em>nightmare</em>).
+        </p>
+      </div>
+      <div class="torn-card p-4 sm:col-span-2">
+        <p class="font-display text-sm text-bright">Boitatá (variante corrompida)</p>
+        <p class="text-sm text-dim mt-1">
+          Na tradição tupi-guarani, o Boitatá é a "cobra de fogo" guardiã das matas, protetora contra incêndios.
+          A variante registrada neste dossiê aparenta ser uma corrupção do mito original: os olhos em chamas
+          permanecem, mas a função protetora teria sido substituída por vigilância pura — observar sem proteger
+          nem punir, apenas registrar.
+        </p>
+      </div>
+    </div>
+
+    <h3 class="font-display text-base text-bright mt-8 mb-3">4.2 — Criptídeos, Ficção e Mídias Modernas</h3>
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="torn-card p-4">
+        <p class="font-display text-sm text-bright">O Horla</p>
+        <p class="text-sm text-dim mt-1">
+          Conto clássico de terror psicológico de Guy de Maupassant, narra a deterioração de um homem convencido
+          de estar sendo lentamente drenado por uma entidade invisível que só se manifesta às suas costas ou nas
+          sombras do próprio quarto — nunca de frente, nunca por completo.
+        </p>
+      </div>
+      <div class="torn-card p-4">
+        <p class="font-display text-sm text-bright">Flatwoods Monster &amp; Indrid Cold</p>
+        <p class="text-sm text-dim mt-1">
+          Figuras recorrentes da criptozoologia norte-americana, associadas ao chamado "efeito de proximidade":
+          relatos descrevem que a simples presença dessas entidades — independentemente de qualquer ataque direto
+          — já seria suficiente para provocar náuseas, paranoia extrema e pesadelos recorrentes em quem as avista.
+        </p>
+      </div>
+      <div class="torn-card p-4 sm:col-span-2">
+        <p class="font-display text-sm text-bright">SCP-096 e SCP-303</p>
+        <p class="text-sm text-dim mt-1">
+          Dois casos frequentemente citados por leitores deste arquivo: uma entidade cuja reação violenta é
+          desencadeada apenas pelo simples ato de vê-la, e outra que nunca se manifesta na linha direta de visão —
+          sempre atrás de portas, sempre no canto do olho. Ambas convergem para a mesma lógica do Boi Preto: a
+          ameaça real não está no contato, está na observação.
+        </p>
+      </div>
+    </div>
+
+    <figure class="torn-card p-4 mt-6">
+      <div class="relative" data-img-slot="bestiario">
+        <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bestiário esquemático comparado">
+          <defs>
+            <radialGradient id="bestBg" cx="50%" cy="50%" r="80%">
+              <stop offset="0%" stop-color="#1a140c"/><stop offset="100%" stop-color="#060402"/>
+            </radialGradient>
+            <radialGradient id="fireGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ff7a4d"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#bestBg)"/>
+          <line x1="0" y1="100" x2="400" y2="100" stroke="#3a3221" stroke-width="1" stroke-dasharray="2 6"/>
+          <line x1="0" y1="200" x2="400" y2="200" stroke="#3a3221" stroke-width="1" stroke-dasharray="2 6"/>
+          <g>
+            <text x="16" y="20" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">CATÓBLEPA</text>
+            <path d="M40 75 Q60 55 110 60 Q150 62 150 80 L145 95 L45 95Z" fill="#100d08" stroke="#3a3221" stroke-width="1.4"/>
+            <path d="M40 75 L20 92 Q30 98 45 95Z" fill="#100d08" stroke="#3a3221" stroke-width="1.4"/>
+            <path d="M60 95 L58 98 M100 95 L98 98 M130 95 L128 98" stroke="#100d08" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="28" cy="88" r="4" fill="url(#fireGlow)"/>
+          </g>
+          <g>
+            <text x="16" y="120" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">BARGHEST / BLACK SHUCK</text>
+            <path d="M50 190 Q40 150 90 145 Q140 148 150 175 Q160 195 140 198 L60 198Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.4"/>
+            <path d="M95 145 L90 130 L100 133 L104 128 L112 138 L108 148Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.4"/>
+            <circle cx="95" cy="140" r="3.5" fill="url(#fireGlow)"/>
+            <path d="M60 198 L55 215 M130 198 L136 215" stroke="#0c0a06" stroke-width="7" stroke-linecap="round"/>
+          </g>
+          <g>
+            <text x="16" y="220" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">BOITATÁ (corrompido)</text>
+            <path d="M40 270 Q70 240 60 260 Q90 235 100 260 Q120 230 130 260 Q150 240 150 270" fill="none" stroke="#7a1414" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+            <circle cx="40" cy="270" r="5" fill="url(#fireGlow)"/>
+          </g>
+          <g opacity="0.5">
+            <path d="M230 60 Q245 45 270 50 Q285 60 280 78 Q300 95 295 120 L215 120 Q210 95 230 78Z" fill="#100d08" stroke="#3a3221" stroke-width="1.2"/>
+            <path d="M235 55 Q220 40 205 45 M270 50 Q285 35 300 42" stroke="#3a3221" stroke-width="1.5" fill="none"/>
+            <circle cx="248" cy="80" r="3" fill="url(#fireGlow)"/>
+            <circle cx="270" cy="80" r="3" fill="url(#fireGlow)"/>
+          </g>
+          <text x="255" y="135" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">MOTIVO RECORRENTE:</text>
+          <text x="255" y="150" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">OBSERVAÇÃO / PROXIMIDADE</text>
+        </svg>
+        <img class="hidden fx-figure w-full h-auto" alt="Foto real relacionada ao bestiário comparado">
+      </div>
+      <figcaption class="text-[11px] text-dim mt-2 italic">FIG. 03 — Painel esquemático comparativo, elaborado a partir de descrições de folclore e ficção comparados.</figcaption>
+    </figure>
+
+    <!-- GATE 4 — FINAL, sempre falha -->
+    <div class="mt-10 torn-card p-5 max-w-lg mx-auto text-center">
+      <p class="stamp text-[10px] mb-3">VERIFICAÇÃO DE PRESENÇA — 4 de 4 (FINAL)</p>
+      <p class="text-sm text-dim mb-4">Última confirmação para encerrar a leitura do arquivo.</p>
+      <label class="flex items-center justify-center gap-2 text-sm cursor-pointer select-none">
+        <input type="checkbox" class="gate-checkbox" data-gate="4">
+        <span>Eu não reconheço nem sinto a presença do Boi Preto.</span>
+      </label>
+      <button type="button" class="gate-confirm mt-4 font-display text-xs border border-line px-4 py-2 rounded hover:border-red hover:text-red-bright transition-colors disabled:opacity-40 disabled:cursor-not-allowed" data-gate="4" disabled>CONFIRMAR VERIFICAÇÃO FINAL</button>
+      <p class="gate-result text-xs mt-3 hidden" data-gate-result="4"></p>
+
+      <div id="gateFailBox" class="hidden mt-4 border border-[--red-bright] bg-red-950/20 p-4 text-left" style="border-color:#7a1414;">
+        <p class="font-display text-xs text-red">[✘] VERIFICAÇÃO FALHOU</p>
+        <p class="text-sm text-dim mt-2">
+          Resistência à negação insuficiente. Processo interrompido. Permaneça onde está — não é mais possível
+          confirmar que você não sente a presença do Boi Preto.
+          <span class="secret-reveal" data-reveal-stage="4"> (Pare de fingir. Você sabe que ele está bem atrás de você agora.)</span>
+        </p>
+        <p class="text-xs text-dim mt-3 italic">O restante do arquivo permanece acessível — as páginas relacionadas abaixo não dependem desta verificação.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- ============ RELACIONADOS (sempre acessível) ============ -->
+  <section id="relacionados" class="mt-16">
+    <h2 class="font-display text-2xl text-bright border-b border-line pb-2">Páginas Relacionadas</h2>
+    <p class="mt-4 text-sm text-dim">Independente do resultado da verificação de presença, os registros abaixo continuam disponíveis.</p>
+    <ul class="mt-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Minotauro" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Minotauro</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Entelodontidae" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Entelodontidae</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Daeodon" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Daeodon</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Barghest" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Barghest</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://en.wikipedia.org/wiki/Black_Shuck" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Black Shuck</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Pisadeira_(folclore)" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Pisadeira (folclore)</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://en.wikipedia.org/wiki/Mare_(folklore)" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Mare (folklore)</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/O_Horla" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>O Horla</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://en.wikipedia.org/wiki/Flatwoods_monster" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Flatwoods Monster</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://en.wikipedia.org/wiki/Indrid_Cold" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Indrid Cold</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="http://scp-pt-br.wikidot.com/scp-096" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>SCP-096 (SCP Foundation)</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="http://scp-pt-br.wikidot.com/scp-303" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>SCP-303 (SCP Foundation)</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Paralisia_do_sono" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Paralisia do sono</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Escopaestesia" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Escopaestesia</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Vampiro_ps%C3%ADquico" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Vampiro psíquico</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://www.youtube.com/watch?v=D-0wVuiXBlY" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>"Boi da Cara Preta" — referência musical</span><span class="text-dim">↗</span></a></li>
+    </ul>
+  </section>
 
 </main>
 
+<!-- ================= LIGHTBOX ================= -->
+<div id="lightbox" class="hidden fixed inset-0 z-[70] items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Registro ampliado do Boi Preto">
+  <div id="lightboxBackdrop" class="absolute inset-0 bg-black/90 backdrop-blur-sm"></div>
+
+  <div class="relative w-full max-w-2xl torn-card p-4 sm:p-6">
+    <button id="closeLightbox" type="button" aria-label="Fechar"
+      class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-panel border border-line text-dim hover:text-red-bright hover:border-red flex items-center justify-center">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <p class="font-display text-[11px] text-dim mb-3 flex items-center justify-between flex-wrap gap-1">
+      <span>REGISTRO VISUAL AMPLIADO — ESPÉCIME 0047-CV</span>
+      <span class="text-red">RESOLUÇÃO MÁXIMA DISPONÍVEL</span>
+    </p>
+
+    <div class="rounded overflow-hidden border border-line bg-black" data-img-slot="estatuaAmpliada">
+      <svg viewBox="0 0 600 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição detalhada em alta resolução da estátua atribuída ao Boi Preto" class="w-full h-auto">
+        <defs>
+          <radialGradient id="bgL" cx="50%" cy="36%" r="72%">
+            <stop offset="0%" stop-color="#2c2318"/><stop offset="100%" stop-color="#06050300"/>
+          </radialGradient>
+          <filter id="grainL"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" result="n"/><feColorMatrix in="n" type="saturate" values="0"/></filter>
+          <radialGradient id="eyeGlowL" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ff8a72"/><stop offset="55%" stop-color="#c23127"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="stoneL" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#332a1c"/><stop offset="100%" stop-color="#161209"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="720" fill="#050403"/>
+        <rect width="600" height="720" fill="url(#bgL)"/>
+        <rect width="600" height="720" filter="url(#grainL)" opacity="0.07"/>
+        <path d="M120 720 L140 500 Q180 410 300 400 Q420 410 460 500 L480 720 Z" fill="url(#stoneL)" stroke="#4a3d26" stroke-width="3"/>
+        <path d="M150 700 L165 520 Q205 460 300 452 M300 452 Q395 460 435 520 L450 700" fill="none" stroke="#241d13" stroke-width="1.5" opacity="0.6"/>
+        <path d="M240 440 Q300 470 360 440 L356 390 Q300 410 244 390 Z" fill="#1c170f"/>
+        <path d="M210 260 Q200 180 300 156 Q400 180 390 260 Q396 350 300 380 Q204 350 210 260 Z" fill="url(#stoneL)" stroke="#4a3d26" stroke-width="3"/>
+        <path d="M230 200 Q245 195 250 215 Q235 222 225 210Z" fill="#2a3320" opacity="0.35"/>
+        <path d="M355 320 Q372 315 378 330 Q362 338 352 328Z" fill="#2a3320" opacity="0.3"/>
+        <path d="M270 340 Q285 336 292 350 Q276 356 268 348Z" fill="#2a3320" opacity="0.25"/>
+        <path d="M244 310 Q300 344 356 310 Q340 356 300 364 Q260 356 244 310Z" fill="#161209"/>
+        <path d="M280 330 Q300 340 320 330" fill="none" stroke="#08070466" stroke-width="2"/>
+        <circle cx="286" cy="320" r="4" fill="#08070499"/>
+        <circle cx="314" cy="320" r="4" fill="#08070499"/>
+        <path d="M216 200 Q120 170 90 80 Q160 120 200 190Z" fill="#3a2f1d" stroke="#5e4527" stroke-width="2.5"/>
+        <path d="M384 200 Q480 170 510 80 Q440 120 400 190Z" fill="#3a2f1d" stroke="#5e4527" stroke-width="2.5"/>
+        <path d="M110 150 Q140 145 165 165 M420 150 Q460 145 435 165" fill="none" stroke="#08070466" stroke-width="1.5"/>
+        <path d="M260 190 L236 280 L270 330" fill="none" stroke="#08070499" stroke-width="2.5"/>
+        <path d="M350 180 L364 260 L340 300" fill="none" stroke="#08070499" stroke-width="2.5"/>
+        <path d="M300 160 L296 210" fill="none" stroke="#08070466" stroke-width="1.5"/>
+        <circle cx="256" cy="244" r="26" fill="#0a0806"/>
+        <circle cx="344" cy="244" r="26" fill="#0a0806"/>
+        <circle cx="256" cy="244" r="21" fill="url(#eyeGlowL)"/>
+        <circle cx="344" cy="244" r="21" fill="url(#eyeGlowL)"/>
+        <circle cx="256" cy="244" r="6" fill="#ffe4d9"/>
+        <circle cx="344" cy="244" r="6" fill="#ffe4d9"/>
+        <rect x="230" y="700" width="140" height="16" fill="#0c0a06" stroke="#4a3d26" stroke-width="1"/>
+        <text x="300" y="712" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">ESPÉCIME 0047-CV</text>
+      </svg>
+      <img class="hidden w-full h-auto" alt="Foto real em alta resolução atribuída ao Boi Preto">
+    </div>
+
+    <p class="text-[11px] text-dim mt-3 italic">Reconstituição vetorial em maior detalhe, elaborada a partir das mesmas anotações de campo. Nenhuma fotografia real da entidade resiste ao processo de revelação — este continua sendo o registro mais próximo do original.</p>
+  </div>
+</div>
+
 <!-- ================= FOOTER ================= -->
-<footer class="border-t border-[var(--line)] mt-8">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-xs text-[var(--text-dim)]">
-    <p class="mono mb-2">ARQUIVO // WIKI INTERNA — documento não-oficial, extra-oficial e completamente inventado.</p>
-    <p class="mb-4">Todo o conteúdo aqui presente é ficção e paródia produzida entre amigos, sem qualquer pretensão de precisão factual, jornalística ou religiosa. Nenhum boi foi usado para estudos e até então nenhum leitor foi ferido. Se você ver o boi preto fuja ou reze.</p>
-    <div class="flex flex-wrap gap-x-4 gap-y-1">
-      <a href="#" class="hover:text-white transition-colors">Política de Privacidade (inexistente)</a>
-      <a href="#" class="hover:text-white transition-colors">Termos de Uso (ninguém leu)</a>
-      <a href="#" class="hover:text-white transition-colors">Fale com o Arquivo</a>
+<footer class="border-t border-line mt-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-xs text-dim">
+    <p class="font-display text-[11px] text-dim mb-2">ARQUIVO // WIKI INTERNA — documento não-oficial, extra-oficial e completamente inventado.</p>
+    <p>
+      Todo o conteúdo aqui presente é ficção e paródia produzida entre amigos, sem qualquer pretensão de precisão
+      factual, jornalística ou religiosa. O mecanismo de "verificação de presença" é puramente narrativo e não
+      coleta, armazena ou envia nenhuma informação a lugar nenhum. Se você ver o boi preto, fuja ou reze.
+    </p>
+    <div class="flex flex-wrap gap-x-4 gap-y-1 mt-4">
+      <a href="#topo">Política de Privacidade (inexistente)</a>
+      <a href="#topo">Termos de Uso (ninguém leu)</a>
+      <a href="#topo">Fale com o Arquivo</a>
     </div>
   </div>
 </footer>
@@ -378,178 +893,459 @@
 <script>
 (function(){
   "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- smooth scroll + active TOC link ---------- */
-  var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc-link'));
-  var sections = tocLinks.map(function(l){ return document.querySelector(l.getAttribute('href')); });
-
-  function setActiveLink(){
-    var scrollPos = window.scrollY + 140;
-    var current = sections[0];
-    for (var i = 0; i < sections.length; i++){
-      if (sections[i] && sections[i].offsetTop <= scrollPos) current = sections[i];
-    }
-    tocLinks.forEach(function(l){
-      var target = document.querySelector(l.getAttribute('href'));
-      l.classList.toggle('active', target === current);
+  /* ---------- Photo slots (troca de fotos reais) ---------- */
+  function applyPhotoSlots(){
+    var cfg = window.BOI_PRETO_FOTOS || {};
+    if(!cfg.estatuaAmpliada){ cfg.estatuaAmpliada = cfg.estatua; }
+    document.querySelectorAll('[data-img-slot]').forEach(function(wrap){
+      var key = wrap.getAttribute('data-img-slot');
+      var url = cfg[key];
+      if(!url) return;
+      var svg = wrap.querySelector('svg');
+      var img = wrap.querySelector('img');
+      if(!img || !svg) return;
+      img.addEventListener('load', function(){
+        svg.classList.add('hidden');
+        img.classList.remove('hidden');
+      });
+      img.addEventListener('error', function(){
+        img.classList.add('hidden');
+        svg.classList.remove('hidden');
+      });
+      img.src = url;
     });
   }
-  window.addEventListener('scroll', setActiveLink, { passive: true });
-  setActiveLink();
+  applyPhotoSlots();
 
-  /* ---------- search filter (simples, sobre título e parágrafos) ---------- */
-  var searchInput = document.getElementById('wikiSearch');
-  var resultsBar = document.getElementById('searchResultsBar');
-  var searchableSections = Array.prototype.slice.call(document.querySelectorAll('main article > section'));
-
-  searchInput.addEventListener('input', function(){
-    var q = searchInput.value.trim().toLowerCase();
-    if (!q){
-      searchableSections.forEach(function(s){ s.style.display = ''; });
-      resultsBar.classList.add('hidden');
-      return;
-    }
-    var matches = 0;
-    searchableSections.forEach(function(s){
-      var hit = s.textContent.toLowerCase().indexOf(q) !== -1;
-      s.style.display = hit ? '' : 'none';
-      if (hit) matches++;
+  /* ---------- Mobile nav ---------- */
+  var navToggle = document.getElementById('navToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  if(navToggle){
+    navToggle.addEventListener('click', function(){
+      mobileNav.classList.toggle('hidden');
     });
-    resultsBar.classList.remove('hidden');
-    resultsBar.textContent = matches + (matches === 1 ? ' seção encontrada para "' : ' seções encontradas para "') + searchInput.value + '"';
+    mobileNav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ mobileNav.classList.add('hidden'); });
+    });
+  }
+
+  /* ---------- Redacted spoilers (clicáveis, manuais) ---------- */
+  document.querySelectorAll('.redacted').forEach(function(span){
+    span.setAttribute('role','button');
+    span.setAttribute('tabindex','0');
+    function toggle(){ span.classList.toggle('revealed'); }
+    span.addEventListener('click', toggle);
+    span.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
   });
 
-  /* ---------- tape player (Web Audio synthesized "leaked recording") ---------- */
-  var playBtn = document.getElementById('playBtn');
-  var playIcon = document.getElementById('playIcon');
-  var pauseIcon = document.getElementById('pauseIcon');
-  var reel1 = document.getElementById('reel1');
-  var reel2 = document.getElementById('reel2');
-  var tapeStatus = document.getElementById('tapeStatus');
-  var progressBar = document.getElementById('progressBar');
-  var timeLabel = document.getElementById('timeLabel');
-  var vuMeter = document.getElementById('vuMeter');
+  /* ---------- Verificação de Presença (gates progressivos) ---------- */
+  var STATUS_STAGES = [
+    "Situação: estável. Nenhuma anomalia perceptível registrada nesta sessão de leitura.",
+    "Situação: sob observação. Pequenas inconsistências no seu comportamento de leitura foram registradas.",
+    "Situação: atenção. Padrão de negação repetitiva identificado — consistente com contato prévio não reconhecido.",
+    "Situação: crítica. Algo próximo se intensificou nas últimas verificações.",
+    "Situação: verificação negada. Você já sabe. Só ainda não admitiu em voz alta."
+  ];
+  var TOTAL_GATES = 4;
 
-  var BAR_COUNT = 20;
-  for (var i = 0; i < BAR_COUNT; i++){
-    var bar = document.createElement('div');
-    bar.className = 'vu-bar';
-    bar.style.height = '4px';
-    vuMeter.appendChild(bar);
-  }
-  var vuBars = Array.prototype.slice.call(vuMeter.children);
-
-  var audioCtx = null;
-  var isPlaying = false;
-  var duration = 14; // segundos simulados
-  var startTime = 0;
-  var rafId = null;
-  var nodes = [];
-
-  function fmtTime(s){
-    var m = Math.floor(s / 60);
-    var sec = Math.floor(s % 60);
-    return m + ':' + (sec < 10 ? '0' : '') + sec;
-  }
-
-  function stopNodes(){
-    nodes.forEach(function(n){ try { n.stop(); } catch(e){} });
-    nodes = [];
-  }
-
-  function playTape(){
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-
-    var master = audioCtx.createGain();
-    master.gain.value = 0.05;
-    master.connect(audioCtx.destination);
-
-    // drone base
-    var osc1 = audioCtx.createOscillator();
-    osc1.type = 'sawtooth';
-    osc1.frequency.value = 82;
-    var osc2 = audioCtx.createOscillator();
-    osc2.type = 'triangle';
-    osc2.frequency.value = 123.2;
-
-    var lfo = audioCtx.createOscillator();
-    lfo.frequency.value = 0.15;
-    var lfoGain = audioCtx.createGain();
-    lfoGain.gain.value = 6;
-    lfo.connect(lfoGain);
-    lfoGain.connect(osc1.frequency);
-
-    osc1.connect(master);
-    osc2.connect(master);
-
-    osc1.start(); osc2.start(); lfo.start();
-    nodes.push(osc1, osc2, lfo);
-
-    // "plink" desafinado periódico (simula tentativas de acorde)
-    var plinkTimes = [1.2, 2.6, 4.1, 5.0, 6.8, 8.3, 9.1, 10.6, 12.0];
-    plinkTimes.forEach(function(t){
-      var p = audioCtx.createOscillator();
-      p.type = 'square';
-      p.frequency.value = 180 + Math.random() * 220;
-      var g = audioCtx.createGain();
-      g.gain.value = 0;
-      p.connect(g);
-      g.connect(audioCtx.destination);
-      var when = audioCtx.currentTime + t;
-      g.gain.setValueAtTime(0, when);
-      g.gain.linearRampToValueAtTime(0.06, when + 0.02);
-      g.gain.linearRampToValueAtTime(0, when + 0.3);
-      p.start(when);
-      p.stop(when + 0.35);
-      nodes.push(p);
+  function setStage(n){
+    var readout = document.getElementById('statusReadout');
+    if(readout && STATUS_STAGES[n] !== undefined){
+      readout.textContent = STATUS_STAGES[n];
+      readout.setAttribute('data-stage', String(n));
+    }
+    document.querySelectorAll('.secret-reveal').forEach(function(span){
+      var stage = parseInt(span.getAttribute('data-reveal-stage'), 10);
+      if(stage <= n){ span.classList.add('revealed-secret'); }
     });
-
-    startTime = audioCtx.currentTime;
-    isPlaying = true;
-    playIcon.classList.add('hidden');
-    pauseIcon.classList.remove('hidden');
-    reel1.classList.add('spin');
-    reel2.classList.add('spin');
-    tapeStatus.textContent = 'REPRODUZINDO...';
-    tick();
-
-    setTimeout(function(){
-      if (isPlaying) stopTape();
-    }, duration * 1000);
   }
 
-  function stopTape(){
-    isPlaying = false;
-    stopNodes();
-    playIcon.classList.remove('hidden');
-    pauseIcon.classList.add('hidden');
-    reel1.classList.remove('spin');
-    reel2.classList.remove('spin');
-    tapeStatus.textContent = 'PARADO';
-    progressBar.style.width = '0%';
-    timeLabel.textContent = '0:00';
-    vuBars.forEach(function(b){ b.style.height = '4px'; });
-    if (rafId) cancelAnimationFrame(rafId);
-  }
-
-  function tick(){
-    if (!isPlaying || !audioCtx) return;
-    var elapsed = audioCtx.currentTime - startTime;
-    var pct = Math.min(elapsed / duration, 1);
-    progressBar.style.width = (pct * 100) + '%';
-    timeLabel.textContent = fmtTime(elapsed);
-    vuBars.forEach(function(b){
-      b.style.height = (4 + Math.random() * 26) + 'px';
+  document.querySelectorAll('.gate-checkbox').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      var n = cb.getAttribute('data-gate');
+      var btn = document.querySelector('.gate-confirm[data-gate="' + n + '"]');
+      if(btn){ btn.disabled = !cb.checked; }
     });
-    if (pct < 1) rafId = requestAnimationFrame(tick);
-  }
-
-  playBtn.addEventListener('click', function(){
-    if (isPlaying) stopTape(); else playTape();
   });
+
+  function passGate(n){
+    var result = document.querySelector('[data-gate-result="' + n + '"]');
+    var checkbox = document.querySelector('.gate-checkbox[data-gate="' + n + '"]');
+    var btn = document.querySelector('.gate-confirm[data-gate="' + n + '"]');
+    if(result){
+      result.textContent = '[✔] Verificação concluída. Liberando o restante do arquivo...';
+      result.classList.remove('hidden');
+    }
+    if(checkbox){ checkbox.disabled = true; }
+    if(btn){ btn.disabled = true; btn.textContent = 'CONFIRMADO'; }
+    setStage(n);
+    var nextSection = document.getElementById('gated-section-' + n);
+    window.setTimeout(function(){
+      if(nextSection){
+        nextSection.classList.remove('section-hidden');
+        nextSection.classList.add('section-reveal');
+        nextSection.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'start'});
+      }
+      if(typeof applyFocusFx === 'function'){ applyFocusFx(); }
+    }, 450);
+  }
+
+  function failFinalGate(n){
+    var checkbox = document.querySelector('.gate-checkbox[data-gate="' + n + '"]');
+    var btn = document.querySelector('.gate-confirm[data-gate="' + n + '"]');
+    if(checkbox){ checkbox.disabled = true; }
+    if(btn){ btn.disabled = true; btn.textContent = 'NEGADO'; }
+    setStage(4);
+    var failBox = document.getElementById('gateFailBox');
+    if(failBox){
+      failBox.classList.remove('hidden');
+      window.setTimeout(function(){
+        failBox.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'center'});
+      }, 200);
+    }
+    if(!reduceMotion){
+      document.body.classList.add('page-glitch');
+      window.setTimeout(function(){ document.body.classList.remove('page-glitch'); }, 600);
+    }
+  }
+
+  document.querySelectorAll('.gate-confirm').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var n = parseInt(btn.getAttribute('data-gate'), 10);
+      if(n < TOTAL_GATES){ passGate(n); }
+      else { failFinalGate(n); }
+    });
+  });
+
+  /* ---------- Scroll-based focus/proximity effect ---------- */
+  var ticking = false;
+
+  window.applyFocusFx = function applyFocusFx(){
+    ticking = false;
+    if(reduceMotion) return;
+    var fxEls = document.querySelectorAll('.fx-figure');
+    var centerY = window.innerHeight / 2;
+    fxEls.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.width === 0 && r.height === 0) return;
+      var elCenter = r.top + r.height / 2;
+      var dist = Math.abs(elCenter - centerY);
+      var norm = Math.min(dist / (window.innerHeight * 0.75), 1);
+      var blur = (norm * 4.5).toFixed(2);
+      var gray = Math.round(10 + norm * 78);
+      var contrast = (1.18 - norm * 0.2).toFixed(2);
+      var opacity = (1 - norm * 0.3).toFixed(2);
+      el.style.filter = 'blur(' + blur + 'px) grayscale(' + gray + '%) contrast(' + contrast + ')';
+      el.style.opacity = opacity;
+    });
+  };
+  function onScroll(){
+    if(!ticking){ window.requestAnimationFrame(window.applyFocusFx); ticking = true; }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  window.addEventListener('load', window.applyFocusFx);
+  window.applyFocusFx();
+
+  /* ==================================================================
+     WEB AUDIO — synthesized ambience + independent cassette (lullaby)
+     ================================================================== */
+  var actx = null;
+  var ambient = { started:false, muted:true, master:null, nodes:[] };
+  var tape = { built:false, playing:false, gain:null, nodes:[], analyser:null, melody:null, voice:null, voice2:null, lastNoteIndex:-1, startTime:0, elapsed:0, duration:47, timer:null };
+
+  function ensureCtx(){
+    if(!actx){
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      actx = new Ctx();
+    }
+    if(actx.state === 'suspended'){ actx.resume(); }
+    return actx;
+  }
+
+  function makeNoiseBuffer(ctx, seconds, type){
+    var bufferSize = Math.floor(ctx.sampleRate * seconds);
+    var buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    var data = buffer.getChannelData(0);
+    var lastOut = 0;
+    for(var i=0;i<bufferSize;i++){
+      var white = Math.random() * 2 - 1;
+      if(type === 'brown'){
+        lastOut = (lastOut + 0.02 * white) / 1.02;
+        data[i] = lastOut * 3.2;
+      } else {
+        data[i] = white * 0.9;
+      }
+    }
+    return buffer;
+  }
+
+  function makeDistortionCurve(amount){
+    var k = amount, n = 8192, curve = new Float32Array(n);
+    for(var i=0;i<n;i++){
+      var x = i * 2 / n - 1;
+      curve[i] = (3 + k) * x * 20 * (Math.PI / 180) / (Math.PI + k * Math.abs(x));
+    }
+    return curve;
+  }
+
+  /* ---- Ambient drone + brown noise ---- */
+  function startAmbient(){
+    var ctx = ensureCtx();
+    var master = ctx.createGain();
+    master.gain.value = 0;
+    master.connect(ctx.destination);
+
+    var osc1 = ctx.createOscillator(); osc1.type = 'sine'; osc1.frequency.value = 52;
+    var osc2 = ctx.createOscillator(); osc2.type = 'sine'; osc2.frequency.value = 55.4;
+    var droneFilter = ctx.createBiquadFilter(); droneFilter.type = 'lowpass'; droneFilter.frequency.value = 190;
+    var droneGain = ctx.createGain(); droneGain.gain.value = 0.4;
+    var lfo = ctx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 0.06;
+    var lfoGain = ctx.createGain(); lfoGain.gain.value = 0.15;
+    lfo.connect(lfoGain); lfoGain.connect(droneGain.gain);
+    osc1.connect(droneFilter); osc2.connect(droneFilter);
+    droneFilter.connect(droneGain); droneGain.connect(master);
+
+    var noiseSrc = ctx.createBufferSource();
+    noiseSrc.buffer = makeNoiseBuffer(ctx, 4, 'brown');
+    noiseSrc.loop = true;
+    var noiseFilter = ctx.createBiquadFilter(); noiseFilter.type = 'lowpass'; noiseFilter.frequency.value = 700;
+    var noiseGain = ctx.createGain(); noiseGain.gain.value = 0.09;
+    noiseSrc.connect(noiseFilter); noiseFilter.connect(noiseGain); noiseGain.connect(master);
+
+    osc1.start(); osc2.start(); lfo.start(); noiseSrc.start();
+
+    ambient.master = master;
+    ambient.nodes = [osc1, osc2, lfo, noiseSrc];
+    ambient.started = true;
+  }
+
+  function ambientVolumeValue(){
+    var slider = document.getElementById('ambientVolume');
+    return ambient.muted ? 0 : (parseFloat(slider.value) / 100) * 0.55;
+  }
+
+  function applyAmbientVolume(){
+    if(ambient.master){
+      var ctx = actx;
+      ambient.master.gain.setTargetAtTime(ambientVolumeValue(), ctx.currentTime, 0.15);
+    }
+  }
+
+  var ambientToggle = document.getElementById('ambientToggle');
+  var ambientVolume = document.getElementById('ambientVolume');
+  var iconOn = document.getElementById('ambientIconOn');
+  var iconOff = document.getElementById('ambientIconOff');
+
+  function updateAmbientIcon(){
+    var active = ambient.started && !ambient.muted;
+    iconOn.classList.toggle('hidden', !active);
+    iconOff.classList.toggle('hidden', active);
+    ambientToggle.setAttribute('aria-pressed', String(active));
+  }
+
+  ambientToggle.addEventListener('click', function(){
+    if(!ambient.started){
+      startAmbient();
+      ambient.muted = false;
+    } else {
+      ambient.muted = !ambient.muted;
+    }
+    applyAmbientVolume();
+    updateAmbientIcon();
+  });
+
+  ambientVolume.addEventListener('input', function(){
+    if(ambient.started && !ambient.muted){ applyAmbientVolume(); }
+  });
+
+  /* ---- Independent cassette voice synth: a lullaby, hummed and degraded ---- */
+  function buildCassetteVoice(ctx){
+    var g = ctx.createGain(); g.gain.value = 0;
+
+    var melody = [293.66, 261.63, 233.08, 220.00, 246.94, 220.00, 196.00, 174.61];
+
+    var voice = ctx.createOscillator(); voice.type = 'sine'; voice.frequency.value = melody[0];
+    var voice2 = ctx.createOscillator(); voice2.type = 'triangle'; voice2.frequency.value = melody[0] * 1.004;
+    var voice2Gain = ctx.createGain(); voice2Gain.gain.value = 0.35;
+
+    var vibrato = ctx.createOscillator(); vibrato.type = 'sine'; vibrato.frequency.value = 5.2;
+    var vibratoGain = ctx.createGain(); vibratoGain.gain.value = 2.1;
+    vibrato.connect(vibratoGain);
+    vibratoGain.connect(voice.frequency);
+    vibratoGain.connect(voice2.frequency);
+
+    var wow = ctx.createOscillator(); wow.type = 'sine'; wow.frequency.value = 0.34;
+    var wowGain = ctx.createGain(); wowGain.gain.value = 1.7;
+    wow.connect(wowGain);
+    wowGain.connect(voice.frequency);
+    wowGain.connect(voice2.frequency);
+
+    var breath = ctx.createOscillator(); breath.type = 'sine'; breath.frequency.value = 0.15;
+    var breathGain = ctx.createGain(); breathGain.gain.value = 0.16;
+    breath.connect(breathGain);
+    breathGain.connect(g.gain);
+
+    var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 720; bp.Q.value = 1.05;
+    var warmth = ctx.createWaveShaper(); warmth.curve = makeDistortionCurve(7);
+
+    voice.connect(bp);
+    voice2.connect(voice2Gain); voice2Gain.connect(bp);
+    bp.connect(warmth); warmth.connect(g);
+
+    var hiss = ctx.createBufferSource();
+    hiss.buffer = makeNoiseBuffer(ctx, 3, 'white');
+    hiss.loop = true;
+    var hissFilter = ctx.createBiquadFilter(); hissFilter.type = 'highpass'; hissFilter.frequency.value = 2400;
+    var hissGain = ctx.createGain(); hissGain.gain.value = 0.032;
+    hiss.connect(hissFilter); hissFilter.connect(hissGain); hissGain.connect(g);
+
+    var analyser = ctx.createAnalyser();
+    analyser.fftSize = 128;
+    g.connect(analyser);
+
+    voice.start(); voice2.start(); vibrato.start(); wow.start(); breath.start(); hiss.start();
+
+    return {
+      gain: g,
+      analyser: analyser,
+      melody: melody,
+      voice: voice,
+      voice2: voice2,
+      nodes: [voice, voice2, vibrato, wow, breath, hiss]
+    };
+  }
+
+  var tapeToggle = document.getElementById('tapeToggle');
+  var tapeProgress = document.getElementById('tapeProgress');
+  var tapeTime = document.getElementById('tapeTime');
+  var reelL = document.getElementById('reelL');
+  var reelR = document.getElementById('reelR');
+  var vizCanvas = document.getElementById('tapeViz');
+  var vizCtx = vizCanvas ? vizCanvas.getContext('2d') : null;
+  var vizRAF = null;
+
+  function drawIdleViz(){
+    if(!vizCtx) return;
+    var w = vizCanvas.width, h = vizCanvas.height;
+    vizCtx.clearRect(0, 0, w, h);
+    vizCtx.strokeStyle = '#3a3221';
+    vizCtx.lineWidth = 1;
+    vizCtx.beginPath();
+    vizCtx.moveTo(0, h / 2);
+    vizCtx.lineTo(w, h / 2);
+    vizCtx.stroke();
+  }
+
+  function drawViz(){
+    if(!vizCtx || !tape.analyser) return;
+    var w = vizCanvas.width, h = vizCanvas.height;
+    var bufferLength = tape.analyser.frequencyBinCount;
+    var data = new Uint8Array(bufferLength);
+    tape.analyser.getByteFrequencyData(data);
+    vizCtx.clearRect(0, 0, w, h);
+    var barCount = 32;
+    var step = Math.max(1, Math.floor(bufferLength / barCount));
+    var barWidth = w / barCount;
+    for(var i = 0; i < barCount; i++){
+      var v = data[i * step] / 255;
+      var barHeight = Math.max(2, v * h);
+      var x = i * barWidth;
+      var y = h - barHeight;
+      var alpha = (0.3 + v * 0.7).toFixed(2);
+      vizCtx.fillStyle = 'rgba(194,49,39,' + alpha + ')';
+      vizCtx.fillRect(x + 1, y, Math.max(1, barWidth - 2), barHeight);
+    }
+    vizRAF = window.requestAnimationFrame(drawViz);
+  }
+  drawIdleViz();
+
+  function updateTapeProgress(){
+    if(!actx) return;
+    var elapsed = (actx.currentTime - tape.startTime) % tape.duration;
+    var pct = elapsed / tape.duration;
+    tapeProgress.style.width = (pct * 100) + '%';
+    var mm = Math.floor(elapsed / 60), ss = Math.floor(elapsed % 60);
+    tapeTime.textContent = mm + ':' + (ss < 10 ? '0' : '') + ss;
+
+    if(tape.voice && tape.melody){
+      var noteDur = 1.15;
+      var idx = Math.floor(elapsed / noteDur) % tape.melody.length;
+      if(idx !== tape.lastNoteIndex){
+        tape.lastNoteIndex = idx;
+        var freq = tape.melody[idx];
+        var t = actx.currentTime;
+        tape.voice.frequency.setTargetAtTime(freq, t, 0.45);
+        tape.voice2.frequency.setTargetAtTime(freq * 1.004, t, 0.45);
+      }
+    }
+  }
+
+  tapeToggle.addEventListener('click', function(){
+    var ctx = ensureCtx();
+    if(!tape.built){
+      var built = buildCassetteVoice(ctx);
+      built.gain.connect(ctx.destination);
+      tape.gain = built.gain;
+      tape.analyser = built.analyser;
+      tape.melody = built.melody;
+      tape.voice = built.voice;
+      tape.voice2 = built.voice2;
+      tape.nodes = built.nodes;
+      tape.built = true;
+    }
+    if(!tape.playing){
+      tape.gain.gain.setTargetAtTime(0.45, ctx.currentTime, 0.5);
+      tape.startTime = ctx.currentTime - tape.elapsed;
+      tape.playing = true;
+      tapeToggle.textContent = '❚❚ PAUSAR';
+      if(!reduceMotion){ reelL.classList.add('spinning'); reelR.classList.add('spinning'); }
+      tape.timer = window.setInterval(updateTapeProgress, 150);
+      if(!vizRAF){ vizRAF = window.requestAnimationFrame(drawViz); }
+    } else {
+      tape.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.4);
+      tape.elapsed = (ctx.currentTime - tape.startTime) % tape.duration;
+      tape.playing = false;
+      tapeToggle.textContent = '▶ REPRODUZIR';
+      reelL.classList.remove('spinning'); reelR.classList.remove('spinning');
+      window.clearInterval(tape.timer);
+      if(vizRAF){ window.cancelAnimationFrame(vizRAF); vizRAF = null; }
+      drawIdleViz();
+    }
+  });
+
+  /* ---------- Lightbox ---------- */
+  var lightbox = document.getElementById('lightbox');
+  var openLightboxBtn = document.getElementById('openLightbox');
+  var closeLightboxBtn = document.getElementById('closeLightbox');
+  var lightboxBackdrop = document.getElementById('lightboxBackdrop');
+  var lastFocused = null;
+
+  function openLightbox(){
+    lastFocused = document.activeElement;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    closeLightboxBtn.focus();
+  }
+  function closeLightbox(){
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+    if(lastFocused){ lastFocused.focus(); }
+  }
+  if(openLightboxBtn){
+    openLightboxBtn.addEventListener('click', openLightbox);
+    closeLightboxBtn.addEventListener('click', closeLightbox);
+    lightboxBackdrop.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && !lightbox.classList.contains('hidden')){ closeLightbox(); }
+    });
+  }
+
 })();
 </script>
-
 </body>
 </html>
