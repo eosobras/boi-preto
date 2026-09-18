@@ -209,7 +209,8 @@
     estatuaAmpliada: null,  // versão maior/mais detalhada, usada ao clicar na foto principal (se vazio, usa "estatua")
     amfora:          null,  // Seção 1 — artefato histórico
     entelodonte:     null,  // Seção 3 — anatomia / avistamento
-    bestiario:       null   // Seção 4 — bestiário comparado
+    bestiario:       null,  // Seção 4 — bestiário comparado
+    boibranco:       null   // Seção 5 — Boi Branco
   };
 </script>
 
@@ -291,6 +292,7 @@
           <li class="text-ink-dim">2. Gravações e Fita Cassete Reconstruída <span class="text-[11px]">— liberado após verificação 1</span></li>
           <li class="text-ink-dim">3. Anatomia, Comportamento e Avistamentos Modernos <span class="text-[11px]">— liberado após verificação 2</span></li>
           <li class="text-ink-dim">4. Bestiário de Anomalias Correlatas <span class="text-[11px]">— liberado após verificação 3</span></li>
+          <li class="text-ink-dim">5. Boi Branco — A Antítese <span class="text-[11px]">— liberado após verificação 3</span></li>
         </ul>
         <p class="text-[11px] mt-2 italic">As seções 2 a 4 são reveladas gradualmente conforme você avança nas verificações de presença abaixo.</p>
       </nav>
@@ -299,6 +301,9 @@
     <!-- INFOBOX -->
     <aside class="mt-8 lg:mt-0 lg:w-80 shrink-0 torn-card p-4">
       <button id="openLightbox" type="button" aria-label="Ampliar imagem da estátua do Boi Preto"
+        data-zoom-slot="estatua"
+        data-zoom-label="REGISTRO VISUAL AMPLIADO — ESPÉCIME 0047-CV"
+        data-zoom-caption="Reconstituição vetorial em maior detalhe, elaborada a partir das mesmas anotações de campo. Nenhuma fotografia real da entidade resiste ao processo de revelação — este continua sendo o registro mais próximo do original."
         class="group relative aspect-[4/5] w-full rounded overflow-hidden border border-line bg-black flex items-center justify-center cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[--red-bright]">
         <div class="relative w-full h-full" data-img-slot="estatua">
           <svg class="fx-figure w-full h-full" viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática da estátua atribuída ao Boi Preto">
@@ -388,30 +393,41 @@
       </div>
 
       <figure class="torn-card p-4">
-        <div class="relative" data-img-slot="amfora">
-          <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática da Ânfora de Tinos e do azulejo do labirinto">
-            <defs>
-              <radialGradient id="sepiaBg" cx="50%" cy="45%" r="75%">
-                <stop offset="0%" stop-color="#241a0d"/><stop offset="100%" stop-color="#0d0904"/>
-              </radialGradient>
-            </defs>
-            <rect width="400" height="300" fill="url(#sepiaBg)"/>
-            <rect x="18" y="18" width="364" height="264" fill="none" stroke="#6b4a2f" stroke-width="1.5" stroke-dasharray="2 6"/>
-            <path d="M170 40 L230 40 L235 60 L215 65 L215 85 Q260 100 260 160 Q260 230 200 250 Q140 230 140 160 Q140 100 185 85 L185 65 L165 60 Z"
-                  fill="#171009" stroke="#a9834f" stroke-width="2"/>
-            <path d="M145 105 Q110 120 120 165 Q128 150 150 140" fill="none" stroke="#a9834f" stroke-width="3"/>
-            <path d="M255 105 Q290 120 280 165 Q272 150 250 140" fill="none" stroke="#a9834f" stroke-width="3"/>
-            <g stroke="#c9ad7a" stroke-width="1.6" fill="none" opacity="0.9">
-              <path d="M178 150 L178 200 M172 160 L184 160 M172 180 L184 172"/>
-              <circle cx="178" cy="140" r="7"/>
-              <path d="M215 150 Q225 165 215 200 M205 160 L225 160"/>
-              <path d="M225 138 Q232 130 240 134 M225 138 Q220 128 228 122"/>
-              <circle cx="221" cy="140" r="7"/>
-            </g>
-            <text x="200" y="270" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#8f8571">ÂNFORA DE TINOS — c. 670–660 a.C. (reconstituição)</text>
-          </svg>
-          <img class="hidden fx-figure w-full h-auto" alt="Foto real do artefato histórico associado ao Boi Preto">
-        </div>
+        <button type="button" class="group relative block w-full text-left cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[--red-bright] rounded overflow-hidden"
+          data-zoom-slot="amfora" aria-label="Ampliar imagem do artefato histórico"
+          data-zoom-label="REGISTRO VISUAL AMPLIADO — ARTEFATO HISTÓRICO"
+          data-zoom-caption="FIG. 01 — Reconstituição esquemática do registro mais antigo catalogado da entidade, baseada em descrições de arquivo.">
+          <div class="relative" data-img-slot="amfora">
+            <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática da Ânfora de Tinos e do azulejo do labirinto">
+              <defs>
+                <radialGradient id="sepiaBg" cx="50%" cy="45%" r="75%">
+                  <stop offset="0%" stop-color="#241a0d"/><stop offset="100%" stop-color="#0d0904"/>
+                </radialGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#sepiaBg)"/>
+              <rect x="18" y="18" width="364" height="264" fill="none" stroke="#6b4a2f" stroke-width="1.5" stroke-dasharray="2 6"/>
+              <path d="M170 40 L230 40 L235 60 L215 65 L215 85 Q260 100 260 160 Q260 230 200 250 Q140 230 140 160 Q140 100 185 85 L185 65 L165 60 Z"
+                    fill="#171009" stroke="#a9834f" stroke-width="2"/>
+              <path d="M145 105 Q110 120 120 165 Q128 150 150 140" fill="none" stroke="#a9834f" stroke-width="3"/>
+              <path d="M255 105 Q290 120 280 165 Q272 150 250 140" fill="none" stroke="#a9834f" stroke-width="3"/>
+              <g stroke="#c9ad7a" stroke-width="1.6" fill="none" opacity="0.9">
+                <path d="M178 150 L178 200 M172 160 L184 160 M172 180 L184 172"/>
+                <circle cx="178" cy="140" r="7"/>
+                <path d="M215 150 Q225 165 215 200 M205 160 L225 160"/>
+                <path d="M225 138 Q232 130 240 134 M225 138 Q220 128 228 122"/>
+                <circle cx="221" cy="140" r="7"/>
+              </g>
+              <text x="200" y="270" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#8f8571">ÂNFORA DE TINOS — c. 670–660 a.C. (reconstituição)</text>
+            </svg>
+            <img class="hidden fx-figure w-full h-auto" alt="Foto real do artefato histórico associado ao Boi Preto">
+          </div>
+          <span class="absolute inset-0 flex items-end justify-center pb-3 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+            <span class="font-display text-[11px] text-bright flex items-center gap-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              AMPLIAR
+            </span>
+          </span>
+        </button>
         <figcaption class="text-[11px] text-dim mt-2 italic">FIG. 01 — Reconstituição esquemática do registro mais antigo catalogado da entidade, baseada em descrições de arquivo.</figcaption>
       </figure>
     </div>
@@ -551,7 +567,41 @@
           conseguem explicar.
         </p>
 
-        <div class="grid sm:grid-cols-2 gap-4 mt-6">
+        <figure class="torn-card p-3 mt-6">
+          <button type="button" class="group relative block w-full text-left cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[--red-bright] rounded overflow-hidden"
+            data-zoom-slot="padroes" aria-label="Ampliar imagem de detecção periférica"
+            data-zoom-label="REGISTRO VISUAL AMPLIADO — IMPRESSÃO DE CAMPO"
+            data-zoom-caption="FIG. 04 — impressão de campo, ilustrando a detecção periférica relatada por testemunhas.">
+            <div data-img-slot="padroes">
+              <svg class="fx-figure w-full h-auto rounded max-h-48 mx-auto" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração esquemática de detecção periférica na escuridão">
+                <defs>
+                  <radialGradient id="watchBg" cx="50%" cy="55%" r="75%">
+                    <stop offset="0%" stop-color="#181209"/><stop offset="100%" stop-color="#040302"/>
+                  </radialGradient>
+                  <radialGradient id="watchGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ff6a58"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="200" height="150" fill="url(#watchBg)"/>
+                <path d="M0 150 L20 90 Q40 70 70 90 L80 150Z" fill="#0a0805" opacity="0.9"/>
+                <path d="M200 150 L185 100 Q165 82 150 100 L140 150Z" fill="#0a0805" opacity="0.7"/>
+                <circle cx="152" cy="60" r="7" fill="url(#watchGlow)"/>
+                <circle cx="152" cy="60" r="2" fill="#ffd9cf"/>
+                <text x="100" y="138" text-anchor="middle" font-family="Special Elite, monospace" font-size="8" fill="#8f8571">CANTO DO OLHO — nunca de frente</text>
+              </svg>
+              <img class="hidden fx-figure w-full h-auto rounded" alt="Foto real ilustrando detecção periférica">
+            </div>
+            <span class="absolute inset-0 flex items-end justify-center pb-3 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+              <span class="font-display text-[11px] text-bright flex items-center gap-1.5">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                AMPLIAR
+              </span>
+            </span>
+          </button>
+          <figcaption class="text-[10px] text-dim mt-1.5 italic text-center">FIG. 04 — impressão de campo</figcaption>
+        </figure>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           <div class="torn-card p-3">
             <p class="font-display text-xs text-red mb-1">PADRÃO 01</p>
             <p class="text-sm font-semibold text-bright">Aparições em sonhos</p>
@@ -577,33 +627,49 @@
             <p class="text-sm font-semibold text-bright">Apatia</p>
             <p class="text-sm text-dim mt-1">Sua característica mais consistente é a inação. Essa passividade é o que, historicamente, permite ao observado escapar.</p>
           </div>
+          <div class="torn-card p-3">
+            <p class="font-display text-xs text-red mb-1">FRAQUEZA 03</p>
+            <p class="text-sm font-semibold text-bright">Confronto direto</p>
+            <p class="text-sm text-dim mt-1">Como o Horla, o Barghest e o próprio SCP-303, o Boi Preto evita sistematicamente a linha direta de visão. Relatos sugerem que encará-lo de frente — mesmo sem realmente enxergá-lo — interrompe o padrão de perseguição, ainda que apenas temporariamente.</p>
+          </div>
         </div>
       </div>
 
       <figure class="torn-card p-4">
-        <div class="relative" data-img-slot="entelodonte">
-          <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática do Daeodon associado ao Boi Preto">
-            <defs>
-              <radialGradient id="nightBg" cx="50%" cy="55%" r="80%">
-                <stop offset="0%" stop-color="#1a1408"/><stop offset="100%" stop-color="#050403"/>
-              </radialGradient>
-              <radialGradient id="eyeGlow2" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#ff5c4d"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <rect width="400" height="300" fill="url(#nightBg)"/>
-            <ellipse cx="200" cy="270" rx="220" ry="24" fill="#0d0a05" opacity="0.9"/>
-            <path d="M70 235 Q90 170 160 165 L230 150 Q270 145 300 165 Q330 180 320 210 L310 235 L280 235 L275 210 L120 220 L110 235Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
-            <path d="M105 220 L98 260 M300 210 L305 258 M270 225 L268 258 M140 225 L136 258" stroke="#0c0a06" stroke-width="10" stroke-linecap="round"/>
-            <path d="M55 205 Q40 195 45 175 Q70 160 100 175 Q115 190 105 210 Q90 225 65 220 Q55 215 55 205Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
-            <path d="M40 200 L15 210 L42 213Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
-            <path d="M110 168 L118 150 L125 170 L133 148 L140 170 L148 150 L156 172" fill="none" stroke="#3a3221" stroke-width="2"/>
-            <circle cx="68" cy="188" r="10" fill="url(#eyeGlow2)"/>
-            <circle cx="68" cy="188" r="3" fill="#ffb3a3"/>
-            <text x="200" y="292" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#8f8571">DAEODON SP. — hipótese anatômica (reconstituição)</text>
-          </svg>
-          <img class="hidden fx-figure w-full h-auto" alt="Foto real de avistamento associado ao Boi Preto">
-        </div>
+        <button type="button" class="group relative block w-full text-left cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[--red-bright] rounded overflow-hidden"
+          data-zoom-slot="entelodonte" aria-label="Ampliar imagem do avistamento"
+          data-zoom-label="REGISTRO VISUAL AMPLIADO — HIPÓTESE ANATÔMICA"
+          data-zoom-caption="FIG. 02 — Reconstituição estilizada baseada em relatos de avistamento noturno e na hipótese do entelodontídeo.">
+          <div class="relative" data-img-slot="entelodonte">
+            <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática do Daeodon associado ao Boi Preto">
+              <defs>
+                <radialGradient id="nightBg" cx="50%" cy="55%" r="80%">
+                  <stop offset="0%" stop-color="#1a1408"/><stop offset="100%" stop-color="#050403"/>
+                </radialGradient>
+                <radialGradient id="eyeGlow2" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#ff5c4d"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#nightBg)"/>
+              <ellipse cx="200" cy="270" rx="220" ry="24" fill="#0d0a05" opacity="0.9"/>
+              <path d="M70 235 Q90 170 160 165 L230 150 Q270 145 300 165 Q330 180 320 210 L310 235 L280 235 L275 210 L120 220 L110 235Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
+              <path d="M105 220 L98 260 M300 210 L305 258 M270 225 L268 258 M140 225 L136 258" stroke="#0c0a06" stroke-width="10" stroke-linecap="round"/>
+              <path d="M55 205 Q40 195 45 175 Q70 160 100 175 Q115 190 105 210 Q90 225 65 220 Q55 215 55 205Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
+              <path d="M40 200 L15 210 L42 213Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.5"/>
+              <path d="M110 168 L118 150 L125 170 L133 148 L140 170 L148 150 L156 172" fill="none" stroke="#3a3221" stroke-width="2"/>
+              <circle cx="68" cy="188" r="10" fill="url(#eyeGlow2)"/>
+              <circle cx="68" cy="188" r="3" fill="#ffb3a3"/>
+              <text x="200" y="292" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#8f8571">DAEODON SP. — hipótese anatômica (reconstituição)</text>
+            </svg>
+            <img class="hidden fx-figure w-full h-auto" alt="Foto real de avistamento associado ao Boi Preto">
+          </div>
+          <span class="absolute inset-0 flex items-end justify-center pb-3 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+            <span class="font-display text-[11px] text-bright flex items-center gap-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              AMPLIAR
+            </span>
+          </span>
+        </button>
         <figcaption class="text-[11px] text-dim mt-2 italic">FIG. 02 — Reconstituição estilizada baseada em relatos de avistamento noturno e na hipótese do entelodontídeo.</figcaption>
       </figure>
     </div>
@@ -712,51 +778,188 @@
     </div>
 
     <figure class="torn-card p-4 mt-6">
-      <div class="relative" data-img-slot="bestiario">
-        <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bestiário esquemático comparado">
-          <defs>
-            <radialGradient id="bestBg" cx="50%" cy="50%" r="80%">
-              <stop offset="0%" stop-color="#1a140c"/><stop offset="100%" stop-color="#060402"/>
-            </radialGradient>
-            <radialGradient id="fireGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#ff7a4d"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <rect width="400" height="300" fill="url(#bestBg)"/>
-          <line x1="0" y1="100" x2="400" y2="100" stroke="#3a3221" stroke-width="1" stroke-dasharray="2 6"/>
-          <line x1="0" y1="200" x2="400" y2="200" stroke="#3a3221" stroke-width="1" stroke-dasharray="2 6"/>
-          <g>
-            <text x="16" y="20" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">CATÓBLEPA</text>
-            <path d="M40 75 Q60 55 110 60 Q150 62 150 80 L145 95 L45 95Z" fill="#100d08" stroke="#3a3221" stroke-width="1.4"/>
-            <path d="M40 75 L20 92 Q30 98 45 95Z" fill="#100d08" stroke="#3a3221" stroke-width="1.4"/>
-            <path d="M60 95 L58 98 M100 95 L98 98 M130 95 L128 98" stroke="#100d08" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="28" cy="88" r="4" fill="url(#fireGlow)"/>
-          </g>
-          <g>
-            <text x="16" y="120" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">BARGHEST / BLACK SHUCK</text>
-            <path d="M50 190 Q40 150 90 145 Q140 148 150 175 Q160 195 140 198 L60 198Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.4"/>
-            <path d="M95 145 L90 130 L100 133 L104 128 L112 138 L108 148Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.4"/>
-            <circle cx="95" cy="140" r="3.5" fill="url(#fireGlow)"/>
-            <path d="M60 198 L55 215 M130 198 L136 215" stroke="#0c0a06" stroke-width="7" stroke-linecap="round"/>
-          </g>
-          <g>
-            <text x="16" y="220" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">BOITATÁ (corrompido)</text>
-            <path d="M40 270 Q70 240 60 260 Q90 235 100 260 Q120 230 130 260 Q150 240 150 270" fill="none" stroke="#7a1414" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
-            <circle cx="40" cy="270" r="5" fill="url(#fireGlow)"/>
-          </g>
-          <g opacity="0.5">
-            <path d="M230 60 Q245 45 270 50 Q285 60 280 78 Q300 95 295 120 L215 120 Q210 95 230 78Z" fill="#100d08" stroke="#3a3221" stroke-width="1.2"/>
-            <path d="M235 55 Q220 40 205 45 M270 50 Q285 35 300 42" stroke="#3a3221" stroke-width="1.5" fill="none"/>
-            <circle cx="248" cy="80" r="3" fill="url(#fireGlow)"/>
-            <circle cx="270" cy="80" r="3" fill="url(#fireGlow)"/>
-          </g>
-          <text x="255" y="135" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">MOTIVO RECORRENTE:</text>
-          <text x="255" y="150" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">OBSERVAÇÃO / PROXIMIDADE</text>
-        </svg>
-        <img class="hidden fx-figure w-full h-auto" alt="Foto real relacionada ao bestiário comparado">
-      </div>
+      <button type="button" class="group relative block w-full text-left cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[--red-bright] rounded overflow-hidden"
+        data-zoom-slot="bestiario" aria-label="Ampliar painel do bestiário"
+        data-zoom-label="REGISTRO VISUAL AMPLIADO — BESTIÁRIO COMPARADO"
+        data-zoom-caption="FIG. 03 — Painel esquemático comparativo, elaborado a partir de descrições de folclore e ficção comparados.">
+        <div class="relative" data-img-slot="bestiario">
+          <svg class="fx-figure w-full h-auto" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bestiário esquemático comparado">
+            <defs>
+              <radialGradient id="bestBg" cx="50%" cy="50%" r="80%">
+                <stop offset="0%" stop-color="#1a140c"/><stop offset="100%" stop-color="#060402"/>
+              </radialGradient>
+              <radialGradient id="fireGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ff7a4d"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#bestBg)"/>
+            <line x1="0" y1="100" x2="400" y2="100" stroke="#3a3221" stroke-width="1" stroke-dasharray="2 6"/>
+            <line x1="0" y1="200" x2="400" y2="200" stroke="#3a3221" stroke-width="1" stroke-dasharray="2 6"/>
+            <g>
+              <text x="16" y="20" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">CATÓBLEPA</text>
+              <path d="M40 75 Q60 55 110 60 Q150 62 150 80 L145 95 L45 95Z" fill="#100d08" stroke="#3a3221" stroke-width="1.4"/>
+              <path d="M40 75 L20 92 Q30 98 45 95Z" fill="#100d08" stroke="#3a3221" stroke-width="1.4"/>
+              <path d="M60 95 L58 98 M100 95 L98 98 M130 95 L128 98" stroke="#100d08" stroke-width="6" stroke-linecap="round"/>
+              <circle cx="28" cy="88" r="4" fill="url(#fireGlow)"/>
+            </g>
+            <g>
+              <text x="16" y="120" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">BARGHEST / BLACK SHUCK</text>
+              <path d="M50 190 Q40 150 90 145 Q140 148 150 175 Q160 195 140 198 L60 198Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.4"/>
+              <path d="M95 145 L90 130 L100 133 L104 128 L112 138 L108 148Z" fill="#0c0a06" stroke="#3a3221" stroke-width="1.4"/>
+              <circle cx="95" cy="140" r="3.5" fill="url(#fireGlow)"/>
+              <path d="M60 198 L55 215 M130 198 L136 215" stroke="#0c0a06" stroke-width="7" stroke-linecap="round"/>
+            </g>
+            <g>
+              <text x="16" y="220" font-family="Special Elite, monospace" font-size="10" fill="#8f8571">BOITATÁ (corrompido)</text>
+              <path d="M40 270 Q70 240 60 260 Q90 235 100 260 Q120 230 130 260 Q150 240 150 270" fill="none" stroke="#7a1414" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+              <circle cx="40" cy="270" r="5" fill="url(#fireGlow)"/>
+            </g>
+            <g opacity="0.5">
+              <path d="M230 60 Q245 45 270 50 Q285 60 280 78 Q300 95 295 120 L215 120 Q210 95 230 78Z" fill="#100d08" stroke="#3a3221" stroke-width="1.2"/>
+              <path d="M235 55 Q220 40 205 45 M270 50 Q285 35 300 42" stroke="#3a3221" stroke-width="1.5" fill="none"/>
+              <circle cx="248" cy="80" r="3" fill="url(#fireGlow)"/>
+              <circle cx="270" cy="80" r="3" fill="url(#fireGlow)"/>
+            </g>
+            <text x="255" y="135" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">MOTIVO RECORRENTE:</text>
+            <text x="255" y="150" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">OBSERVAÇÃO / PROXIMIDADE</text>
+          </svg>
+          <img class="hidden fx-figure w-full h-auto" alt="Foto real relacionada ao bestiário comparado">
+        </div>
+        <span class="absolute inset-0 flex items-end justify-center pb-3 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+          <span class="font-display text-[11px] text-bright flex items-center gap-1.5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            AMPLIAR
+          </span>
+        </span>
+      </button>
       <figcaption class="text-[11px] text-dim mt-2 italic">FIG. 03 — Painel esquemático comparativo, elaborado a partir de descrições de folclore e ficção comparados.</figcaption>
     </figure>
+
+    <h3 id="boibranco" class="font-display text-2xl text-bright border-b border-line pb-2 mt-14">5. Boi Branco — A Antítese</h3>
+    <div class="mt-6 grid lg:grid-cols-2 gap-8 items-start">
+      <div class="space-y-4 text-[15px] order-2 lg:order-1">
+        <p>
+          Registros mais recentes, ainda pouco compreendidos, apontam para uma entidade oposta — não
+          complementar, mas antitética — ao Boi Preto: o <strong>Boi Branco</strong>. Onde um opera na escuridão
+          total e na periferia da visão, o outro se posiciona exatamente no <span class="text-red font-semibold">excesso
+          de luz</span> — reflexos ofuscantes em espelhos sob sol forte, contraluz de lâmpadas piscando, névoa
+          diurna. Um material mais extenso sobre a entidade será publicado em outro arquivo; o que segue é um
+          resumo preliminar de campo.
+        </p>
+        <p>
+          Ele não se esconde por timidez — fica visível apenas o bastante para impor uma vigília constante. Sua
+          presença não gera o pavor agudo do Boi Preto, mas uma <strong>dormência emocional</strong>: apatia
+          profunda que substitui o medo pela incapacidade de reagir a qualquer perigo real. Nos sonhos, o
+          contraste também se inverte — em vez dos pesadelos claustrofóbicos relatados no arquivo principal, o Boi
+          Branco manifesta-se em paisagens brancas, silenciosas e desérticas, onde a pessoa está tecnicamente "a
+          salvo" de qualquer intrusão externa, mas trancada numa jaula de calmaria forçada.
+        </p>
+        <p>
+          Enquanto o Boi Preto drena sangue, vigor físico e saúde metabólica, o Boi Branco consome
+          <strong>iniciativa, ambição e apego emocional</strong>. A pessoa sob sua "guarda" não morre definhada —
+          torna-se um vaso dócil, incapaz de tomar decisões por conta própria. Como não há juízo de valor em sua
+          atuação, a resposta a qualquer intrusão é fria e desproporcional à intenção por trás dela: um gesto
+          insistente para chamar atenção pode ser lido com a mesma severidade de uma ameaça real. O Boi Branco
+          protege quem está sob seu pacto — santo ou tirano, indiferentemente — desde que a presença tenha sido
+          fixada.
+        </p>
+        <p>
+          O pagamento não é adoração, apenas <strong>isolamento e silêncio</strong>. Quanto mais a pessoa se
+          desconecta do convívio humano e aceita o isolamento sensorial, mais forte a criatura se ancora na
+          realidade para afastar qualquer perturbação — inclusive as boas.
+        </p>
+        <p class="text-sm text-dim">
+          Paralelos citados com frequência: pactos transacionais com fadas e o povo Sidhe da tradição celta, que
+          protegem residências e rebanhos com fidelidade extrema mas cobram um preço terrível caso o ritual seja
+          esquecido; o Golem de Praga, autômato criado para defender uma comunidade mas desprovido de discernimento
+          moral; e, no campo clínico, a hipervigilância traumática — estado em que o sistema nervoso se blinda
+          tanto contra ameaças que impede a pessoa de viver normalmente, trocando vulnerabilidade por entorpecimento
+          permanente.
+        </p>
+
+        <div class="torn-card p-3 overflow-x-auto mt-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="text-left border-b border-line">
+                <th class="py-2 pr-3 font-display text-xs text-dim font-normal">Atributo</th>
+                <th class="py-2 pr-3 font-display text-xs text-red font-normal">Boi Preto</th>
+                <th class="py-2 font-display text-xs text-bright font-normal">Boi Branco</th>
+              </tr>
+            </thead>
+            <tbody class="text-dim">
+              <tr class="border-b border-line/60">
+                <td class="py-2 pr-3 text-bright">Ambiente</td>
+                <td class="py-2 pr-3">Escuridão, cantos de quarto, periferia visual</td>
+                <td class="py-2">Névoa, contraluz, excesso de luz</td>
+              </tr>
+              <tr class="border-b border-line/60">
+                <td class="py-2 pr-3 text-bright">Recurso drenado</td>
+                <td class="py-2 pr-3">Vitalidade física e tecido biológico</td>
+                <td class="py-2">Ambição, livre-arbítrio, sensibilidade</td>
+              </tr>
+              <tr class="border-b border-line/60">
+                <td class="py-2 pr-3 text-bright">Mecanismo</td>
+                <td class="py-2 pr-3">Perseguição predatória ativa</td>
+                <td class="py-2">Vigília territorial impiedosa</td>
+              </tr>
+              <tr class="border-b border-line/60">
+                <td class="py-2 pr-3 text-bright">Sintoma na vítima</td>
+                <td class="py-2 pr-3">Paranoia, definhamento, pânico</td>
+                <td class="py-2">Catatonia funcional, isolamento crônico</td>
+              </tr>
+              <tr>
+                <td class="py-2 pr-3 text-bright">Status moral</td>
+                <td class="py-2 pr-3">Destruição indiferente</td>
+                <td class="py-2">Preservação destrutiva</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <figure class="torn-card p-4 order-1 lg:order-2">
+        <button type="button" class="group relative block w-full text-left cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[--red-bright] rounded overflow-hidden"
+          data-zoom-slot="boibranco" aria-label="Ampliar imagem do Boi Branco"
+          data-zoom-label="REGISTRO VISUAL AMPLIADO — BOI BRANCO"
+          data-zoom-caption="FIG. 05 — Reconstituição esquemática do Boi Branco, entidade antitética ao Boi Preto.">
+          <div class="relative" data-img-slot="boibranco">
+            <svg class="fx-figure w-full h-auto" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição esquemática do Boi Branco">
+              <defs>
+                <radialGradient id="fogBg" cx="50%" cy="42%" r="85%">
+                  <stop offset="0%" stop-color="#efe8d4"/><stop offset="55%" stop-color="#c9c2ad"/><stop offset="100%" stop-color="#8f8874"/>
+                </radialGradient>
+                <filter id="fogNoise"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="n"/><feColorMatrix in="n" type="saturate" values="0"/></filter>
+                <radialGradient id="whiteGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#fffdf5"/><stop offset="100%" stop-color="#fff6e0" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect width="400" height="400" fill="url(#fogBg)"/>
+              <rect width="400" height="400" filter="url(#fogNoise)" opacity="0.18"/>
+              <ellipse cx="200" cy="330" rx="230" ry="30" fill="#d9d2bc" opacity="0.6"/>
+              <path d="M90 330 Q100 250 170 240 Q230 240 240 250 L330 250 Q345 260 335 330 Z" fill="#f4efe0" stroke="#b7ae93" stroke-width="1.5" opacity="0.92"/>
+              <path d="M150 260 Q200 280 250 260 L248 235 Q200 250 152 235 Z" fill="#e7dfc9"/>
+              <path d="M135 175 Q130 130 200 118 Q270 130 265 175 Q268 220 200 235 Q132 220 135 175 Z" fill="#f6f1e2" stroke="#b7ae93" stroke-width="1.5"/>
+              <path d="M150 205 Q200 222 250 205 Q240 228 200 232 Q160 228 150 205Z" fill="#e7dfc9"/>
+              <path d="M140 145 Q95 132 82 90 Q118 108 138 140Z" fill="#e7dfc9" stroke="#b7ae93" stroke-width="1.2"/>
+              <path d="M260 145 Q305 132 318 90 Q282 108 262 140Z" fill="#e7dfc9" stroke="#b7ae93" stroke-width="1.2"/>
+              <circle cx="178" cy="167" r="16" fill="url(#whiteGlow)"/>
+              <circle cx="222" cy="167" r="16" fill="url(#whiteGlow)"/>
+              <circle cx="178" cy="167" r="3.5" fill="#cfc6a8"/>
+              <circle cx="222" cy="167" r="3.5" fill="#cfc6a8"/>
+              <text x="200" y="380" text-anchor="middle" font-family="Special Elite, monospace" font-size="11" fill="#6b644f">BOI BRANCO — hipótese preliminar (reconstituição)</text>
+            </svg>
+            <img class="hidden fx-figure w-full h-auto" alt="Foto real do Boi Branco">
+          </div>
+          <span class="absolute inset-0 flex items-end justify-center pb-3 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+            <span class="font-display text-[11px] text-bright flex items-center gap-1.5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              AMPLIAR
+            </span>
+          </span>
+        </button>
+        <figcaption class="text-[11px] text-dim mt-2 italic">FIG. 05 — Reconstituição esquemática do Boi Branco, entidade antitética ao Boi Preto. Material complementar em breve, em arquivo à parte.</figcaption>
+      </figure>
+    </div>
 
     <!-- GATE 4 — FINAL, sempre falha -->
     <div class="mt-10 torn-card p-5 max-w-lg mx-auto text-center">
@@ -803,13 +1006,18 @@
       <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Escopaestesia" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Escopaestesia</span><span class="text-dim">↗</span></a></li>
       <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Vampiro_ps%C3%ADquico" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Vampiro psíquico</span><span class="text-dim">↗</span></a></li>
       <li class="torn-card p-3"><a href="https://www.youtube.com/watch?v=D-0wVuiXBlY" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>"Boi da Cara Preta" — referência musical</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Golem" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Golem</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Yin-yang" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Yin-yang</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Tuatha_D%C3%A9_Danann" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Tuatha Dé Danann</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Hipervigil%C3%A2ncia" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Hipervigilância</span><span class="text-dim">↗</span></a></li>
+      <li class="torn-card p-3"><a href="https://pt.wikipedia.org/wiki/Sonho_l%C3%BAcido" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2"><span>Sonho lúcido</span><span class="text-dim">↗</span></a></li>
     </ul>
   </section>
 
 </main>
 
 <!-- ================= LIGHTBOX ================= -->
-<div id="lightbox" class="hidden fixed inset-0 z-[70] items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Registro ampliado do Boi Preto">
+<div id="lightbox" class="hidden fixed inset-0 z-[70] items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Registro ampliado">
   <div id="lightboxBackdrop" class="absolute inset-0 bg-black/90 backdrop-blur-sm"></div>
 
   <div class="relative w-full max-w-2xl torn-card p-4 sm:p-6">
@@ -819,59 +1027,63 @@
     </button>
 
     <p class="font-display text-[11px] text-dim mb-3 flex items-center justify-between flex-wrap gap-1">
-      <span>REGISTRO VISUAL AMPLIADO — ESPÉCIME 0047-CV</span>
+      <span id="lightboxLabel">REGISTRO VISUAL AMPLIADO</span>
       <span class="text-red">RESOLUÇÃO MÁXIMA DISPONÍVEL</span>
     </p>
 
-    <div class="rounded overflow-hidden border border-line bg-black" data-img-slot="estatuaAmpliada">
-      <svg viewBox="0 0 600 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição detalhada em alta resolução da estátua atribuída ao Boi Preto" class="w-full h-auto">
-        <defs>
-          <radialGradient id="bgL" cx="50%" cy="36%" r="72%">
-            <stop offset="0%" stop-color="#2c2318"/><stop offset="100%" stop-color="#06050300"/>
-          </radialGradient>
-          <filter id="grainL"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" result="n"/><feColorMatrix in="n" type="saturate" values="0"/></filter>
-          <radialGradient id="eyeGlowL" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ff8a72"/><stop offset="55%" stop-color="#c23127"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="stoneL" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#332a1c"/><stop offset="100%" stop-color="#161209"/>
-          </linearGradient>
-        </defs>
-        <rect width="600" height="720" fill="#050403"/>
-        <rect width="600" height="720" fill="url(#bgL)"/>
-        <rect width="600" height="720" filter="url(#grainL)" opacity="0.07"/>
-        <path d="M120 720 L140 500 Q180 410 300 400 Q420 410 460 500 L480 720 Z" fill="url(#stoneL)" stroke="#4a3d26" stroke-width="3"/>
-        <path d="M150 700 L165 520 Q205 460 300 452 M300 452 Q395 460 435 520 L450 700" fill="none" stroke="#241d13" stroke-width="1.5" opacity="0.6"/>
-        <path d="M240 440 Q300 470 360 440 L356 390 Q300 410 244 390 Z" fill="#1c170f"/>
-        <path d="M210 260 Q200 180 300 156 Q400 180 390 260 Q396 350 300 380 Q204 350 210 260 Z" fill="url(#stoneL)" stroke="#4a3d26" stroke-width="3"/>
-        <path d="M230 200 Q245 195 250 215 Q235 222 225 210Z" fill="#2a3320" opacity="0.35"/>
-        <path d="M355 320 Q372 315 378 330 Q362 338 352 328Z" fill="#2a3320" opacity="0.3"/>
-        <path d="M270 340 Q285 336 292 350 Q276 356 268 348Z" fill="#2a3320" opacity="0.25"/>
-        <path d="M244 310 Q300 344 356 310 Q340 356 300 364 Q260 356 244 310Z" fill="#161209"/>
-        <path d="M280 330 Q300 340 320 330" fill="none" stroke="#08070466" stroke-width="2"/>
-        <circle cx="286" cy="320" r="4" fill="#08070499"/>
-        <circle cx="314" cy="320" r="4" fill="#08070499"/>
-        <path d="M216 200 Q120 170 90 80 Q160 120 200 190Z" fill="#3a2f1d" stroke="#5e4527" stroke-width="2.5"/>
-        <path d="M384 200 Q480 170 510 80 Q440 120 400 190Z" fill="#3a2f1d" stroke="#5e4527" stroke-width="2.5"/>
-        <path d="M110 150 Q140 145 165 165 M420 150 Q460 145 435 165" fill="none" stroke="#08070466" stroke-width="1.5"/>
-        <path d="M260 190 L236 280 L270 330" fill="none" stroke="#08070499" stroke-width="2.5"/>
-        <path d="M350 180 L364 260 L340 300" fill="none" stroke="#08070499" stroke-width="2.5"/>
-        <path d="M300 160 L296 210" fill="none" stroke="#08070466" stroke-width="1.5"/>
-        <circle cx="256" cy="244" r="26" fill="#0a0806"/>
-        <circle cx="344" cy="244" r="26" fill="#0a0806"/>
-        <circle cx="256" cy="244" r="21" fill="url(#eyeGlowL)"/>
-        <circle cx="344" cy="244" r="21" fill="url(#eyeGlowL)"/>
-        <circle cx="256" cy="244" r="6" fill="#ffe4d9"/>
-        <circle cx="344" cy="244" r="6" fill="#ffe4d9"/>
-        <rect x="230" y="700" width="140" height="16" fill="#0c0a06" stroke="#4a3d26" stroke-width="1"/>
-        <text x="300" y="712" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">ESPÉCIME 0047-CV</text>
-      </svg>
-      <img class="hidden w-full h-auto" alt="Foto real em alta resolução atribuída ao Boi Preto">
-    </div>
+    <div id="lightboxContent" class="rounded overflow-hidden border border-line bg-black"></div>
 
-    <p class="text-[11px] text-dim mt-3 italic">Reconstituição vetorial em maior detalhe, elaborada a partir das mesmas anotações de campo. Nenhuma fotografia real da entidade resiste ao processo de revelação — este continua sendo o registro mais próximo do original.</p>
+    <p id="lightboxCaption" class="text-[11px] text-dim mt-3 italic"></p>
   </div>
 </div>
+
+<template id="zoomTemplate-estatua">
+  <div data-img-slot="estatuaAmpliada">
+    <svg viewBox="0 0 600 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reconstituição detalhada em alta resolução da estátua atribuída ao Boi Preto" class="w-full h-auto">
+      <defs>
+        <radialGradient id="bgL" cx="50%" cy="36%" r="72%">
+          <stop offset="0%" stop-color="#2c2318"/><stop offset="100%" stop-color="#06050300"/>
+        </radialGradient>
+        <filter id="grainL"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" result="n"/><feColorMatrix in="n" type="saturate" values="0"/></filter>
+        <radialGradient id="eyeGlowL" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ff8a72"/><stop offset="55%" stop-color="#c23127"/><stop offset="100%" stop-color="#7a1414" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="stoneL" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#332a1c"/><stop offset="100%" stop-color="#161209"/>
+        </linearGradient>
+      </defs>
+      <rect width="600" height="720" fill="#050403"/>
+      <rect width="600" height="720" fill="url(#bgL)"/>
+      <rect width="600" height="720" filter="url(#grainL)" opacity="0.07"/>
+      <path d="M120 720 L140 500 Q180 410 300 400 Q420 410 460 500 L480 720 Z" fill="url(#stoneL)" stroke="#4a3d26" stroke-width="3"/>
+      <path d="M150 700 L165 520 Q205 460 300 452 M300 452 Q395 460 435 520 L450 700" fill="none" stroke="#241d13" stroke-width="1.5" opacity="0.6"/>
+      <path d="M240 440 Q300 470 360 440 L356 390 Q300 410 244 390 Z" fill="#1c170f"/>
+      <path d="M210 260 Q200 180 300 156 Q400 180 390 260 Q396 350 300 380 Q204 350 210 260 Z" fill="url(#stoneL)" stroke="#4a3d26" stroke-width="3"/>
+      <path d="M230 200 Q245 195 250 215 Q235 222 225 210Z" fill="#2a3320" opacity="0.35"/>
+      <path d="M355 320 Q372 315 378 330 Q362 338 352 328Z" fill="#2a3320" opacity="0.3"/>
+      <path d="M270 340 Q285 336 292 350 Q276 356 268 348Z" fill="#2a3320" opacity="0.25"/>
+      <path d="M244 310 Q300 344 356 310 Q340 356 300 364 Q260 356 244 310Z" fill="#161209"/>
+      <path d="M280 330 Q300 340 320 330" fill="none" stroke="#08070466" stroke-width="2"/>
+      <circle cx="286" cy="320" r="4" fill="#08070499"/>
+      <circle cx="314" cy="320" r="4" fill="#08070499"/>
+      <path d="M216 200 Q120 170 90 80 Q160 120 200 190Z" fill="#3a2f1d" stroke="#5e4527" stroke-width="2.5"/>
+      <path d="M384 200 Q480 170 510 80 Q440 120 400 190Z" fill="#3a2f1d" stroke="#5e4527" stroke-width="2.5"/>
+      <path d="M110 150 Q140 145 165 165 M420 150 Q460 145 435 165" fill="none" stroke="#08070466" stroke-width="1.5"/>
+      <path d="M260 190 L236 280 L270 330" fill="none" stroke="#08070499" stroke-width="2.5"/>
+      <path d="M350 180 L364 260 L340 300" fill="none" stroke="#08070499" stroke-width="2.5"/>
+      <path d="M300 160 L296 210" fill="none" stroke="#08070466" stroke-width="1.5"/>
+      <circle cx="256" cy="244" r="26" fill="#0a0806"/>
+      <circle cx="344" cy="244" r="26" fill="#0a0806"/>
+      <circle cx="256" cy="244" r="21" fill="url(#eyeGlowL)"/>
+      <circle cx="344" cy="244" r="21" fill="url(#eyeGlowL)"/>
+      <circle cx="256" cy="244" r="6" fill="#ffe4d9"/>
+      <circle cx="344" cy="244" r="6" fill="#ffe4d9"/>
+      <rect x="230" y="700" width="140" height="16" fill="#0c0a06" stroke="#4a3d26" stroke-width="1"/>
+      <text x="300" y="712" text-anchor="middle" font-family="Special Elite, monospace" font-size="9" fill="#8f8571">ESPÉCIME 0047-CV</text>
+    </svg>
+    <img class="hidden w-full h-auto" alt="Foto real em alta resolução atribuída ao Boi Preto">
+  </div>
+</template>
 
 <!-- ================= FOOTER ================= -->
 <footer class="border-t border-line mt-16">
@@ -1185,22 +1397,25 @@
 
     var breath = ctx.createOscillator(); breath.type = 'sine'; breath.frequency.value = 0.15;
     var breathGain = ctx.createGain(); breathGain.gain.value = 0.16;
+    var voiceBus = ctx.createGain(); voiceBus.gain.value = 1;
     breath.connect(breathGain);
-    breathGain.connect(g.gain);
+    breathGain.connect(voiceBus.gain);
 
     var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 720; bp.Q.value = 1.05;
     var warmth = ctx.createWaveShaper(); warmth.curve = makeDistortionCurve(7);
 
     voice.connect(bp);
     voice2.connect(voice2Gain); voice2Gain.connect(bp);
-    bp.connect(warmth); warmth.connect(g);
+    bp.connect(warmth); warmth.connect(voiceBus);
 
     var hiss = ctx.createBufferSource();
     hiss.buffer = makeNoiseBuffer(ctx, 3, 'white');
     hiss.loop = true;
     var hissFilter = ctx.createBiquadFilter(); hissFilter.type = 'highpass'; hissFilter.frequency.value = 2400;
     var hissGain = ctx.createGain(); hissGain.gain.value = 0.032;
-    hiss.connect(hissFilter); hissFilter.connect(hissGain); hissGain.connect(g);
+    hiss.connect(hissFilter); hissFilter.connect(hissGain); hissGain.connect(voiceBus);
+
+    voiceBus.connect(g);
 
     var analyser = ctx.createAnalyser();
     analyser.fftSize = 128;
@@ -1316,34 +1531,76 @@
     }
   });
 
-  /* ---------- Lightbox ---------- */
+  /* ---------- Lightbox (genérico — funciona para qualquer imagem marcada com data-zoom-slot) ---------- */
   var lightbox = document.getElementById('lightbox');
-  var openLightboxBtn = document.getElementById('openLightbox');
   var closeLightboxBtn = document.getElementById('closeLightbox');
   var lightboxBackdrop = document.getElementById('lightboxBackdrop');
+  var lightboxContent = document.getElementById('lightboxContent');
+  var lightboxLabel = document.getElementById('lightboxLabel');
+  var lightboxCaption = document.getElementById('lightboxCaption');
   var lastFocused = null;
 
-  function openLightbox(){
+  function openLightboxFor(trigger){
+    var slot = trigger.getAttribute('data-zoom-slot');
+    var label = trigger.getAttribute('data-zoom-label') || 'REGISTRO VISUAL AMPLIADO';
+    var caption = trigger.getAttribute('data-zoom-caption') || '';
+    var cfg = window.BOI_PRETO_FOTOS || {};
+    var template = document.getElementById('zoomTemplate-' + slot);
+    var node = null;
+
+    lightboxContent.innerHTML = '';
+
+    if(template && template.content){
+      node = document.importNode(template.content, true);
+      var wrapEl = node.querySelector('[data-img-slot]');
+      if(wrapEl){
+        var key = wrapEl.getAttribute('data-img-slot');
+        var url = cfg[key];
+        var svg = wrapEl.querySelector('svg');
+        var img = wrapEl.querySelector('img');
+        if(url && img){
+          img.addEventListener('load', function(){ if(svg){ svg.classList.add('hidden'); } img.classList.remove('hidden'); });
+          img.addEventListener('error', function(){ img.classList.add('hidden'); if(svg){ svg.classList.remove('hidden'); } });
+          img.src = url;
+        }
+      }
+    } else {
+      var original = document.querySelector('[data-img-slot="' + slot + '"]');
+      if(original){
+        node = original.cloneNode(true);
+        node.querySelectorAll('.fx-figure').forEach(function(el){
+          el.style.filter = '';
+          el.style.opacity = '';
+        });
+      }
+    }
+
+    if(node){ lightboxContent.appendChild(node); }
+    lightboxLabel.textContent = label;
+    lightboxCaption.textContent = caption;
+
     lastFocused = document.activeElement;
     lightbox.classList.remove('hidden');
     lightbox.classList.add('flex');
     document.body.style.overflow = 'hidden';
     closeLightboxBtn.focus();
   }
+
   function closeLightbox(){
     lightbox.classList.add('hidden');
     lightbox.classList.remove('flex');
     document.body.style.overflow = '';
     if(lastFocused){ lastFocused.focus(); }
   }
-  if(openLightboxBtn){
-    openLightboxBtn.addEventListener('click', openLightbox);
-    closeLightboxBtn.addEventListener('click', closeLightbox);
-    lightboxBackdrop.addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape' && !lightbox.classList.contains('hidden')){ closeLightbox(); }
-    });
-  }
+
+  document.querySelectorAll('[data-zoom-slot]').forEach(function(trigger){
+    trigger.addEventListener('click', function(){ openLightboxFor(trigger); });
+  });
+  closeLightboxBtn.addEventListener('click', closeLightbox);
+  lightboxBackdrop.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !lightbox.classList.contains('hidden')){ closeLightbox(); }
+  });
 
 })();
 </script>
